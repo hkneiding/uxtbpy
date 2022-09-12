@@ -47,7 +47,7 @@ class XtbRunner:
         """
 
         # run xtb
-        result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(['xtb', file_path, parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         # check if xtb calculation failed
         if result.returncode != 0:
