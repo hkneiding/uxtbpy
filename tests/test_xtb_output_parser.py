@@ -10,8 +10,7 @@ class TestXtbOutputParser(unittest.TestCase):
             True,
             True
         ],
-
-
+    ])
     def test_graph_generator_settings_from_file(self, input_, expected):
         self.assertEqual(input_, expected)
 
