@@ -1,7 +1,7 @@
 run.py
 
 # temp directory for xTB calculations
-./temp
+.temp/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
