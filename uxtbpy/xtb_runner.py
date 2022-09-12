@@ -1,4 +1,5 @@
 import os
+import datetime
 import subprocess
 
 from .file_handler import FileHandler
@@ -46,8 +47,17 @@ class XtbRunner:
         """
 
         # run xtb
-        result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE)
+        result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
+        # check if xtb calculation failed
+        if result.returncode != 0:
+            print('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".')
+
+            log_file_path = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
+            print('Writing output to "' + log_file_path + '".')
+            FileHandler.write_file(log_file_path, result.stdout.decode('utf-8'))
+            return
+
         # return output
         if self._output_format == 'raw':
             return result.stdout.decode('utf-8')
