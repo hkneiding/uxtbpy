@@ -62,7 +62,7 @@ class XtbRunner:
         if self._output_format == 'raw':
             return result.stdout.decode('utf-8')
         elif self._output_format == 'dict':
-            return XtbOutputParser.parse(result.stdout.decode('utf-8'))
+            return XtbOutputParser(result.stdout.decode('utf-8')).parse()
 
     def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: str = ''):
 
