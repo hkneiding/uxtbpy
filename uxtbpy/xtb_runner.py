@@ -1,37 +1,87 @@
 import os
-import datetime
 import subprocess
 
 from .file_handler import FileHandler
-
+from .xtb_output_parser import XtbOutputParser
 
 class XtbRunner:
 
     """Adapter class for running xtb jobs"""
 
-    def __init__(self, working_directory='./.temp/'):
+    def __init__(self, working_directory: str = './.temp/', output_format: str = 'raw'):
         
-        """Constructor"""
+        """Constructor
 
-        self.working_directory = working_directory
+            Arguments:
+                working_directory (str): The path to the directory in which temporary files will be created 
+                 from the xtb calculations.
+                output_format (str): The format to output the result of xtb calculations.
+        """
 
         # set up working directory if it does not exist already
-        if not os.path.isdir(self.working_directory):
-            os.mkdir(self.working_directory)
+        self._working_directory = working_directory
+        if not os.path.isdir(self._working_directory):
+            os.mkdir(self._working_directory)
+        # change to working directory
+        os.chdir(os.getcwd() + '/' + self._working_directory)
 
-        os.chdir(os.getcwd() + '/' + self.working_directory)
+        # validate output format
+        supported_output_formats = ['raw', 'dict']
+        if output_format not in supported_output_formats:
+            print('Warning: Output format "' + output_format + '" not recognised. Defaulting to "raw".')
+            self._output_format = 'raw'
+        else:
+            self._output_format = output_format
 
-    def run_xtb_full(self, molecule_file_content, file_extension):
-        return self.run_xtb(molecule_file_content, file_extension, parameters=['--ohess'])
+    def run_xtb(self, file_path: str, parameters: str = ''):
 
-    def run_xtb(self, molecule_file_content, file_extension, parameters=''):
+        """Executes xtb with the given file and parameters
 
-        # write molecule data to file
-        file_path = 'mol.' + file_extension
-        FileHandler.write_file(file_path, molecule_file_content)
+        Arguments:
+            file_path (str): The path to the molecule file.
+            parameters (str): The parameters to append to the xtb call.
+
+        Returns:
+            str: The xtb output.
+        """
 
         # run xtb
         result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE)
         
         # return output
-        return result.stdout.decode('utf-8')
+        if self._output_format == 'raw':
+            return result.stdout.decode('utf-8')
+        elif self._output_format == 'dict':
+            return XtbOutputParser.parse(result.stdout.decode('utf-8'))
+
+    def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: str = ''):
+
+        """Executes xtb with the given molecule data and parameters
+
+        Arguments:
+            molecule_data (str): The contents of the molecule file.
+            file_extension (str): The file extension corresponding to the formatting of the molecule file.
+            parameters (str): The parameters to append to the xtb call.
+
+        Returns:
+            str: The xtb output.
+        """
+
+        file_path = 'mol.' + file_extension
+        FileHandler.write_file(file_path, molecule_data)
+
+        return self.run_xtb(file_path, parameters=parameters)
+
+    def run_xtb_from_xyz(self, xyz: str, parameters: str = ''):
+
+        """Executes xtb with the given xyz data and parameters
+
+        Arguments:
+            xyz (str): The xyz formatted data of the molecule.
+            parameters (str): The parameters to append to the xtb call.
+
+        Returns:
+            str: The xtb output.
+        """
+
+        return self.run_xtb_from_molecule_data(xyz, 'xyz', parameters=parameters)
