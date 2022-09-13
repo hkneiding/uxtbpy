@@ -40,14 +40,14 @@ class XtbRunner:
 
         Arguments:
             file_path (str): The path to the molecule file.
-            parameters (str): The parameters to append to the xtb call.
+            parameters (list[str]): The parameters to append to the xtb call.
 
         Returns:
             str: The xtb output.
         """
 
         # run xtb
-        result = subprocess.run(['xtb', file_path, parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         # check if xtb calculation failed
         if result.returncode != 0:
@@ -71,7 +71,7 @@ class XtbRunner:
         Arguments:
             molecule_data (str): The contents of the molecule file.
             file_extension (str): The file extension corresponding to the formatting of the molecule file.
-            parameters (str): The parameters to append to the xtb call.
+            parameters (list[str]): The parameters to append to the xtb call.
 
         Returns:
             str: The xtb output.
@@ -88,7 +88,7 @@ class XtbRunner:
 
         Arguments:
             xyz (str): The xyz formatted data of the molecule.
-            parameters (str): The parameters to append to the xtb call.
+            parameters (list[str]): The parameters to append to the xtb call.
 
         Returns:
             str: The xtb output.
