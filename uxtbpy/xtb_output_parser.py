@@ -57,9 +57,6 @@ class XtbOutputParser:
             if  'TOTAL FREE ENERGY' in self.lines[i]:
                 xtb_output_data['free_energy'] = self._extract_free_energy(i)
 
-            if 'molecular dipole:' in self.lines[i]:
-                xtb_output_data['dipole_moment'] = self._extract_dipole_moment(i + 3)
-
             if 'partition function' in self.lines[i]:
                 xtb_output_data['enthalpy'] = self._extract_enthalpy(i + 6)
                 xtb_output_data['heat_capacity'] = self._extract_heat_capacity(i + 6)
