@@ -22,6 +22,15 @@ class XtbOutputParser:
 
     def parse(self, data: str):
         
+        """Parses a given xTB output line by line to extract different properties.
+
+        Arguments:
+            data (str): The xTB output.
+
+        Returns:
+            dict: A dictionary containing the different outputs.
+        """
+
         self.lines = data.split('\n')
 
         # output variable
@@ -68,6 +77,9 @@ class XtbOutputParser:
             if 'final structure' in self.lines[i]:
                 xtb_output_data['atomic_numbers'] = self._extract_atomic_numbers(i + 4)
                 xtb_output_data['optimised_structure'] = self._extract_optimised_structure(i + 4)
+
+            if 'projected vibrational frequencies' in self.lines[i]:
+                xtb_output_data['vibrational_frequencies'] = self._extract_vibrational_frequencies(i + 1)
 
         return xtb_output_data
 
@@ -148,7 +160,6 @@ class XtbOutputParser:
         
         return atomic_numbers
 
-
     def _extract_optimised_structure(self, start_index: int):
 
         optimised_structure = []
@@ -162,3 +173,18 @@ class XtbOutputParser:
             start_index += 1
         
         return optimised_structure
+
+    def _extract_vibrational_frequencies(self, start_index: int):
+
+        vibrational_frequencies = []
+        while 'eigval' in self.lines[start_index]:
+
+            line_split = self.lines[start_index].split()
+            print(line_split)
+            for i in range(2, len(line_split)):
+                if float(line_split[i]) != 0:
+                    vibrational_frequencies.append(float(line_split[i]))
+            
+            start_index += 1
+        
+        return vibrational_frequencies
