@@ -15,7 +15,7 @@ jobs:
             # conda env create -q || conda env update -q
             # source activate adj
             conda install -c conda-forge parameterized
-            conda install -y xtb
+            conda install -y -c conda-forge xtb
             conda install -qy conda-build anaconda-client pytest pytest-cov
 
       - run:
