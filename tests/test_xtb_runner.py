@@ -11,6 +11,19 @@ class TestFileHandler(unittest.TestCase):
     @parameterized.expand([
 
         [
+            'invalid_output_format'
+        ],
+
+    ])
+    def test_xtb_runner_with_invalid_output_format(self, output_format):
+
+        xtb_runner = XtbRunner(output_format=output_format)
+        self.assertEqual(xtb_runner._output_format, 'raw')
+
+
+    @parameterized.expand([
+
+        [
             SEROTONIN_INPUT_FILE,
             'raw',
             str
