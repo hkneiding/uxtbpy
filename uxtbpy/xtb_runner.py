@@ -9,22 +9,23 @@ class XtbRunner:
 
     """Adapter class for running xtb jobs"""
 
-    def __init__(self, working_directory: str = './.temp/', output_format: str = 'raw'):
+    def __init__(self, xtb_directory: str = './.temp/', output_format: str = 'raw'):
         
         """Constructor
 
             Arguments:
-                working_directory (str): The path to the directory in which temporary files will be created 
+                xtb_directory (str): The path to the directory in which temporary files will be created 
                  from the xtb calculations.
                 output_format (str): The format to output the result of xtb calculations.
         """
 
+        # remember the directory from which the program was launched from 
+        self._root_directory = os.getcwd()
+
         # set up working directory if it does not exist already
-        self._working_directory = working_directory
-        if not os.path.isdir(self._working_directory):
-            os.mkdir(self._working_directory)
-        # change to working directory
-        os.chdir(os.getcwd() + '/' + self._working_directory)
+        self._xtb_directory = xtb_directory
+        if not os.path.isdir(self._xtb_directory):
+            os.mkdir(self._xtb_directory)
 
         # validate output format
         supported_output_formats = ['raw', 'dict']
@@ -45,18 +46,25 @@ class XtbRunner:
         Returns:
             str: The xtb output.
         """
-
+        
+        # change to xtb directory
+        os.chdir(self._xtb_directory)
+        
         # run xtb
         result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
+
         # check if xtb calculation failed
         if result.returncode != 0:
-            print('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".')
-
+            
+            # log xtb output
             log_file_path = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
-            print('Writing output to "' + log_file_path + '".')
             FileHandler.write_file(log_file_path, result.stdout.decode('utf-8'))
-            return
+            # exit
+            raise RuntimeError('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".\n' +
+                               'Writing output to "' + log_file_path + '".')
+        
+        # change to root directory
+        os.chdir(self._root_directory)
 
         # return output
         if self._output_format == 'raw':
@@ -77,7 +85,7 @@ class XtbRunner:
             str: The xtb output.
         """
 
-        file_path = 'mol.' + file_extension
+        file_path = self._xtb_directory + 'mol.' + file_extension
         FileHandler.write_file(file_path, molecule_data)
 
         return self.run_xtb(file_path, parameters=parameters)
