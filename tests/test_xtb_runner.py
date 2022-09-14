@@ -1,0 +1,52 @@
+import unittest
+from parameterized import parameterized
+
+from uxtbpy.xtb_runner import XtbRunner
+
+
+SEROTONIN_INPUT_FILE = '../tests/files/serotonin.xyz'
+
+class TestFileHandler(unittest.TestCase):
+
+    @parameterized.expand([
+
+        [
+            SEROTONIN_INPUT_FILE,
+            'raw',
+            str
+        ],
+
+        [
+            SEROTONIN_INPUT_FILE,
+            'dict',
+            dict
+        ],
+
+    ])
+    def test_run_xtb(self, file_path, output_format, expected_output_format):
+
+        xtb_runner = XtbRunner(output_format=output_format)
+        self.assertEqual(type(xtb_runner.run_xtb(file_path)), expected_output_format)
+
+    @parameterized.expand([
+
+        [
+            'O 0 0 0\nO 0 0 1',
+            RuntimeError
+        ],
+
+        [
+            '\n\nO 0 0 0\nO 0 0 1',
+            RuntimeError
+        ],
+
+        [
+            '2\n\nO 0 0 0\nO 0 0',
+            RuntimeError
+        ]
+
+    ])
+    def test_run_xtb_from_xyz_with_invalid_input(self, input, expected_error):
+
+        xtb_runner = XtbRunner()
+        self.assertRaises(expected_error, xtb_runner.run_xtb_from_xyz, input)
