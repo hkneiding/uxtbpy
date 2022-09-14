@@ -182,8 +182,7 @@ class XtbOutputParser:
             line_split = self.lines[start_index].split()
             print(line_split)
             for i in range(2, len(line_split)):
-                if float(line_split[i]) != 0:
-                    vibrational_frequencies.append(float(line_split[i]))
+                vibrational_frequencies.append(float(line_split[i]))
             
             start_index += 1
         
