@@ -35,12 +35,12 @@ class XtbRunner:
         else:
             self._output_format = output_format
 
-    def run_xtb(self, file_path: str, parameters: str = ''):
+    def run_xtb(self, file_name: str, parameters: list = []):
 
         """Executes xtb with the given file and parameters
 
         Arguments:
-            file_path (str): The path to the molecule file.
+            file_name (str): The name of the molecule file in the xtb directory.
             parameters (list[str]): The parameters to append to the xtb call.
 
         Returns:
@@ -51,7 +51,7 @@ class XtbRunner:
         os.chdir(self._xtb_directory)
         
         # run xtb
-        result = subprocess.run(['xtb', file_path, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(['xtb', file_name, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # check if xtb calculation failed
         if result.returncode != 0:
@@ -72,7 +72,7 @@ class XtbRunner:
         elif self._output_format == 'dict':
             return XtbOutputParser().parse(result.stdout.decode('utf-8'))
 
-    def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: str = ''):
+    def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: list = []):
 
         """Executes xtb with the given molecule data and parameters
 
@@ -88,9 +88,9 @@ class XtbRunner:
         file_path = self._xtb_directory + 'mol.' + file_extension
         FileHandler.write_file(file_path, molecule_data)
 
-        return self.run_xtb(file_path, parameters=parameters)
+        return self.run_xtb('mol.' + file_extension, parameters=parameters)
 
-    def run_xtb_from_xyz(self, xyz: str, parameters: str = ''):
+    def run_xtb_from_xyz(self, xyz: str, parameters: list = []):
 
         """Executes xtb with the given xyz data and parameters
 
