@@ -1,1 +1,1 @@
-from .xtb_runner.py import XtbRunner
+from .xtb_runner import XtbRunner
