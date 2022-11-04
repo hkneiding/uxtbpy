@@ -4,7 +4,7 @@ from parameterized import parameterized
 from uxtbpy.xtb_runner import XtbRunner
 
 
-SEROTONIN_INPUT_FILE = '../tests/files/serotonin.xyz'
+SEROTONIN_INPUT_FILE = './tests/files/serotonin.xyz'
 
 class TestFileHandler(unittest.TestCase):
 
@@ -40,6 +40,20 @@ class TestFileHandler(unittest.TestCase):
 
         xtb_runner = XtbRunner(output_format=output_format)
         self.assertEqual(type(xtb_runner.run_xtb(file_path)), expected_output_format)
+
+    @parameterized.expand([
+
+        [
+            './this/path/does/not/exist',
+            FileNotFoundError
+        ],
+
+
+    ])
+    def test_run_xtb_with_missing_file(self, file_path, expected_error):
+
+        xtb_runner = XtbRunner()
+        self.assertRaises(expected_error, xtb_runner.run_xtb, file_path)
 
     @parameterized.expand([
 

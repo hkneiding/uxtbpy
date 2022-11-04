@@ -1,9 +1,20 @@
 import os
 import datetime
 import subprocess
+from contextlib import contextmanager
 
 from .file_handler import FileHandler
 from .xtb_output_parser import XtbOutputParser
+
+
+@contextmanager
+def change_directory(destination: str):
+    try:
+        cwd = os.getcwd()
+        os.chdir(destination)
+        yield
+    finally:
+        os.chdir(cwd)
 
 class XtbRunner:
 
@@ -35,37 +46,41 @@ class XtbRunner:
         else:
             self._output_format = output_format
 
-    def run_xtb(self, file_name: str, parameters: list = []):
+    def run_xtb(self, file_path: str, parameters: list = []):
 
         """Executes xtb with the given file and parameters
 
         Arguments:
-            file_name (str): The name of the molecule file in the xtb directory.
+            file_path (str): The (relative/absolute) path to the molecule file.
             parameters (list[str]): The parameters to append to the xtb call.
 
         Returns:
             str: The xtb output.
         """
         
+        # get absolute path
+        if os.path.exists(file_path):
+            file_path = os.path.abspath(file_path)
+        else:
+            raise FileNotFoundError('The specified file does not exist.')
+
         # change to xtb directory
-        os.chdir(self._xtb_directory)
-        
-        # run xtb
-        result = subprocess.run(['xtb', file_name, *parameters], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        # check if xtb calculation failed
-        if result.returncode != 0:
+        with change_directory(self._xtb_directory):
             
-            # log xtb output
-            log_file_path = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
-            FileHandler.write_file(log_file_path, result.stdout.decode('utf-8'))
-            # exit
-            raise RuntimeError('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".\n' +
-                               'Writing output to "' + log_file_path + '".')
-        
-        # change to root directory
-        os.chdir(self._root_directory)
+            # run xtb
+            result = subprocess.run(['xtb' + ' ' + file_path + ' ' + ' '.join(parameters)], 
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
+            # check if xtb calculation failed
+            if result.returncode != 0:
+                
+                # log xtb output
+                log_file_path = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
+                FileHandler.write_file(log_file_path, result.stdout.decode('utf-8'))
+                # exit
+                raise RuntimeError('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".\n' +
+                                'Writing output to "' + log_file_path + '".')
+        
         # return output
         if self._output_format == 'raw':
             return result.stdout.decode('utf-8')
@@ -88,7 +103,7 @@ class XtbRunner:
         file_path = self._xtb_directory + 'mol.' + file_extension
         FileHandler.write_file(file_path, molecule_data)
 
-        return self.run_xtb('mol.' + file_extension, parameters=parameters)
+        return self.run_xtb(file_path, parameters=parameters)
 
     def run_xtb_from_xyz(self, xyz: str, parameters: list = []):
 
