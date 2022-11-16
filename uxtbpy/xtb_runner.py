@@ -74,12 +74,20 @@ class XtbRunner:
             # check if xtb calculation failed
             if result.returncode != 0:
                 
+                # make logs directory if not found
                 if not os.path.isdir('./logs/'):
                     os.mkdir('./logs/')
 
+                # read input file
+                with open(file_path, 'r') as fh:
+                    input_ = fh.read()
+
+                # build string to log
+                log = 'Input:\n\n' + input_ + '\n\nOutput:\n\n' + result.stdout.decode('utf-8')
+
                 # log xtb output
                 log_file_path = './logs/' + datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
-                FileHandler.write_file(log_file_path, result.stdout.decode('utf-8'))
+                FileHandler.write_file(log_file_path, log)
                 # exit
                 raise RuntimeError('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".\n' +
                                 'Writing output to "' + log_file_path + '".', result.stdout.decode('utf-8'))
