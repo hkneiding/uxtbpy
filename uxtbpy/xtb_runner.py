@@ -79,7 +79,7 @@ class XtbRunner:
                 FileHandler.write_file(log_file_path, result.stdout.decode('utf-8'))
                 # exit
                 raise RuntimeError('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".\n' +
-                                'Writing output to "' + log_file_path + '".')
+                                'Writing output to "' + log_file_path + '".', result.stdout.decode('utf-8'))
         
         # return output
         if self._output_format == 'raw':
