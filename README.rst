@@ -30,4 +30,4 @@ Usage for ``xyz`` data is as simple as::
     import uxtbpy 
 
     xtb_runner = uxtbpy.XtbRunner(output_format='dict')
-    result = xtb_runner.run_xtb_from_xyz('2\n\nO 0 0 0\nO 1.2 0 0', parameters='--ohess')
+    result = xtb_runner.run_xtb_from_xyz('2\n\nO 0 0 0\nO 1.2 0 0', parameters=['--ohess', '--verbose'])
