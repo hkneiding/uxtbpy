@@ -22,7 +22,6 @@ class TestXtbOutputParser(unittest.TestCase):
         result = XtbOutputParser().parse(output_data)
         self.assertEqual(result['polarisability'], expected)
 
-
     @parameterized.expand([
 
         [
@@ -139,7 +138,6 @@ class TestXtbOutputParser(unittest.TestCase):
         result = XtbOutputParser().parse(output_data)
 
         self.assertEqual(result['optimised_xyz'].strip(), expected.strip())
-
 
     @parameterized.expand([
 
@@ -297,10 +295,3 @@ class TestXtbOutputParser(unittest.TestCase):
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
         self.assertEqual(result['vibrational_frequencies'], expected)
-
-
-
-
-
-
-
