@@ -139,11 +139,6 @@ class XtbOutputParser:
         line_split = self.lines[start_index].split()
         return float(line_split[2])
 
-    def _extract_dipole_moment(self, start_index: int):
-
-        line_split = self.lines[start_index].split()
-        return float(line_split[4])
-
     def _extract_molecular_mass(self, start_index: int):
 
         line_split = self.lines[start_index].split()
