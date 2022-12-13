@@ -79,6 +79,9 @@ class XtbOutputParser:
             if 'projected vibrational frequencies' in self.lines[i]:
                 xtb_output_data['vibrational_frequencies'] = self._extract_vibrational_frequencies(i + 1)
 
+            if 'Mol. α(0) /au' in self.lines[i]:
+                xtb_output_data['polarisability'] = self._extract_polarisability(i)
+
         return xtb_output_data
 
     def _extract_homo_lumo_gap(self, start_index: int):
@@ -145,6 +148,11 @@ class XtbOutputParser:
 
         line_split = self.lines[start_index].split()
         return float(line_split[3])
+
+    def _extract_polarisability(self, start_index: int):
+
+        line_split = self.lines[start_index].split()
+        return float(line_split[4])
 
     def _extract_atomic_numbers(self, start_index: int):
 

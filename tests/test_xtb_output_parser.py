@@ -13,6 +13,20 @@ class TestXtbOutputParser(unittest.TestCase):
 
         [
             SEROTONIN_OUTPUT_FILE,
+            131.186589
+        ],
+    ])
+    def test_extract_polarisability(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result['polarisability'], expected)
+
+
+    @parameterized.expand([
+
+        [
+            SEROTONIN_OUTPUT_FILE,
             -9.6533
         ],
     ])
