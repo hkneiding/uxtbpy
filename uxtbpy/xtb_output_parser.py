@@ -19,6 +19,7 @@ class XtbOutputParser:
         """Constructor"""
 
         self.lines = None
+        self.n_atoms = None
 
     def parse(self, data: str):
         
@@ -32,6 +33,12 @@ class XtbOutputParser:
         """
 
         self.lines = data.split('\n')
+        
+        # determine number of atoms
+        for line in self.lines:
+            if 'number of atoms' in line:
+                self.n_atoms = int(line.split()[-1])
+                break
 
         # output variable
         xtb_output_data = {}
@@ -81,6 +88,9 @@ class XtbOutputParser:
 
             if 'Mol. α(0) /au' in self.lines[i]:
                 xtb_output_data['polarisability'] = self._extract_polarisability(i)
+
+            if 'Wiberg/Mayer (AO) data.' in self.lines[i]:
+                xtb_output_data['wiberg_index_matrix'] = self._extract_wiberg_index_matrix(i + 6)
 
         return xtb_output_data
 
@@ -198,3 +208,32 @@ class XtbOutputParser:
             start_index += 1
         
         return vibrational_frequencies
+
+    def _extract_wiberg_index_matrix(self, start_index: int):
+
+        wiberg_index_matrix = [[0 for _ in range(self.n_atoms)] for __ in range(self.n_atoms)]
+ 
+        while '-------' not in self.lines[start_index]:
+            
+            line_split = self.lines[start_index].split()
+            i_index = int(line_split[0]) - 1
+            
+            for i in range(5, len(line_split), 3):
+                
+                j_index = int(line_split[i]) - 1
+
+                wiberg_index_matrix[i_index][j_index] = float(line_split[i + 2])
+            
+            while '--' not in self.lines[start_index + 1]:
+            
+                start_index += 1
+                line_split = self.lines[start_index].split()
+                for i in range(0, len(line_split), 3):
+                    
+                    j_index = int(line_split[i]) - 1
+
+                    wiberg_index_matrix[i_index][j_index] = float(line_split[i + 2])
+
+            start_index += 1
+
+        return wiberg_index_matrix
