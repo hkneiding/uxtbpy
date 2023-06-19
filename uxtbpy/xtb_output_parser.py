@@ -45,6 +45,7 @@ class XtbOutputParser:
 
         # return if number of atoms not found
         if self.n_atoms is None:
+            print('Failed to retrieve number of atoms. Check input file.')
             return xtb_output_data
 
         # go through lines to find targets
