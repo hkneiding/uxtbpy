@@ -19,6 +19,7 @@ class XtbOutputParser:
         """Constructor"""
 
         self.lines = None
+        self.n_atoms = None
 
     def parse(self, data: str):
         
@@ -32,9 +33,19 @@ class XtbOutputParser:
         """
 
         self.lines = data.split('\n')
-
+        
         # output variable
         xtb_output_data = {}
+        
+        # determine number of atoms
+        for line in self.lines:
+            if 'number of atoms' in line:
+                self.n_atoms = int(line.split()[-1])
+                break
+
+        # return if number of atoms not found
+        if self.n_atoms is None:
+            return xtb_output_data
 
         # go through lines to find targets
         for i in range(len(self.lines)):
@@ -204,14 +215,8 @@ class XtbOutputParser:
 
     def _extract_wiberg_index_matrix(self, start_index: int):
 
-        # determine number of atoms
-        for line in self.lines:
-            if 'number of atoms' in line:
-                n_atoms = int(line.split()[-1])
-                break
-
         # set up Wiberg matrix
-        wiberg_index_matrix = [[0 for _ in range(n_atoms)] for __ in range(n_atoms)] 
+        wiberg_index_matrix = [[0 for _ in range(self.n_atoms)] for __ in range(self.n_atoms)] 
         while '-------' not in self.lines[start_index]:
             
             line_split = self.lines[start_index].split()
