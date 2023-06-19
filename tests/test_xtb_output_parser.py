@@ -329,7 +329,7 @@ class TestXtbOutputParser(unittest.TestCase):
             ]
         ],
     ])
-    def test_extract_vibrational_frequencies(self, output_file, expected):
+    def test_extract_wiberg_index_matrix(self, output_file, expected):
 
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
