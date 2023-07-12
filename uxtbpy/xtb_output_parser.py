@@ -38,9 +38,9 @@ class XtbOutputParser:
         xtb_output_data = {}
         
         # determine number of atoms
-        for line in self.lines:
-            if 'number of atoms' in line:
-                self.n_atoms = int(line.split()[-1])
+        for i, line in enumerate(self.lines):
+            if 'final structure' in line:
+                self.n_atoms = int(self.lines[i + 2])
                 break
 
         # return if number of atoms not found
