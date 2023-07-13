@@ -38,7 +38,7 @@ class XtbRunner:
         # set up working directory if it does not exist already
         self._xtb_directory = xtb_directory
         if not os.path.isdir(self._xtb_directory):
-            os.mkdir(self._xtb_directory)
+            os.makedirs(self._xtb_directory, exist_ok=True)
 
         # validate output format
         supported_output_formats = ['raw', 'dict']
