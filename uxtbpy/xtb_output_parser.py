@@ -39,8 +39,8 @@ class XtbOutputParser:
         
         # determine number of atoms
         for i, line in enumerate(self.lines):
-            if 'final structure' in line:
-                self.n_atoms = int(self.lines[i + 2])
+            if 'Mol. C6AA /au·bohr⁶' in line:
+                self.n_atoms = int(self.lines[i - 2].split()[0])
                 break
 
         # return if number of atoms not found
