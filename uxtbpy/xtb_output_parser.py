@@ -1,3 +1,6 @@
+import warnings
+
+
 element_identifiers = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
                        'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar', 'K',
                        'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni',
@@ -45,7 +48,7 @@ class XtbOutputParser:
 
         # return if number of atoms not found
         if self.n_atoms is None:
-            print('Failed to retrieve number of atoms. Check input file.')
+            warnings.warn('Failed to retrieve number of atoms. Check input file.')
             return xtb_output_data
 
         # go through lines to find targets
