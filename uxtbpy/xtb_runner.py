@@ -1,6 +1,7 @@
 import os
 import datetime
 import subprocess
+import warnings
 from contextlib import contextmanager
 
 from .file_handler import FileHandler
@@ -43,7 +44,7 @@ class XtbRunner:
         # validate output format
         supported_output_formats = ['raw', 'dict']
         if output_format not in supported_output_formats:
-            print('Warning: Output format "' + output_format + '" not recognised. Defaulting to "raw".')
+            warnings.warn('Warning: Output format "' + output_format + '" not recognised. Defaulting to "raw".')
             self._output_format = 'raw'
         else:
             self._output_format = output_format
