@@ -17,8 +17,9 @@ class TestFileHandler(unittest.TestCase):
     ])
     def test_xtb_runner_with_invalid_output_format(self, output_format):
 
-        xtb_runner = XtbRunner(output_format=output_format)
-        self.assertEqual(xtb_runner._output_format, 'raw')
+        with self.assertWarns(Warning):
+            xtb_runner = XtbRunner(output_format=output_format)
+            self.assertEqual(xtb_runner._output_format, 'raw')
 
 
     @parameterized.expand([
