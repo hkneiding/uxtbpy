@@ -2,20 +2,11 @@ import os
 import datetime
 import subprocess
 import warnings
-from contextlib import contextmanager
 
+from .tools import change_directory
 from .file_handler import FileHandler
 from .xtb_output_parser import XtbOutputParser
 
-
-@contextmanager
-def change_directory(destination: str):
-    try:
-        cwd = os.getcwd()
-        os.chdir(destination)
-        yield
-    finally:
-        os.chdir(cwd)
 
 class XtbRunner:
 
