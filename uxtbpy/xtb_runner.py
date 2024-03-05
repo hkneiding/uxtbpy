@@ -22,8 +22,6 @@ class XtbRunner:
                 output_format (str): The format to output the result of xtb calculations.
         """
 
-        self._check_version()
-
         # remember the directory from which the program was launched from 
         self._root_directory = os.getcwd()
 
@@ -40,10 +38,10 @@ class XtbRunner:
         else:
             self._output_format = output_format
 
-    def _check_version(self):
+    def _check_xtb_version(self):
 
         result = subprocess.run(['xtb -version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        if result.stderr != b'normal termination of xtb\n':
+        if b'xtb: not found' in result.stderr:
             raise RuntimeError('No valid version of xTB found. Please make sure you have xTB installed and it is accessible via "xtb".')
 
     def run_xtb(self, file_path: str, parameters: list = []):
@@ -58,6 +56,8 @@ class XtbRunner:
             str: The xtb output.
         """
         
+        self._check_xtb_version()
+
         # get absolute path
         if os.path.exists(file_path):
             file_path = os.path.abspath(file_path)
