@@ -10,11 +10,11 @@ from .xtb_output_parser import XtbOutputParser
 
 class XtbRunner:
 
-    """Adapter class for running xtb jobs"""
+    """Adapter class for running xtb jobs."""
 
     def __init__(self, xtb_directory: str = './.temp/', output_format: str = 'raw'):
         
-        """Constructor
+        """Constructor.
 
             Arguments:
                 xtb_directory (str): The path to the directory in which temporary files will be created 
@@ -46,7 +46,7 @@ class XtbRunner:
 
     def run_xtb(self, file_path: str, parameters: list = []):
 
-        """Executes xtb with the given file and parameters
+        """Executes xtb with the given file and parameters.
 
         Arguments:
             file_path (str): The (relative/absolute) path to the molecule file.
@@ -100,7 +100,7 @@ class XtbRunner:
 
     def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: list = []):
 
-        """Executes xtb with the given molecule data and parameters
+        """Executes xtb with the given molecule data and parameters.
 
         Arguments:
             molecule_data (str): The contents of the molecule file.
@@ -118,7 +118,7 @@ class XtbRunner:
 
     def run_xtb_from_xyz(self, xyz: str, parameters: list = []):
 
-        """Executes xtb with the given xyz data and parameters
+        """Executes xtb with the given xyz data and parameters.
 
         Arguments:
             xyz (str): The xyz formatted data of the molecule.

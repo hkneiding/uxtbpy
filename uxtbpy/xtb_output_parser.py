@@ -15,11 +15,11 @@ element_identifiers = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
 
 class XtbOutputParser:
 
-    """Class for parsing xTB output"""
+    """Class for parsing xTB output."""
 
     def __init__(self):
         
-        """Constructor"""
+        """Constructor."""
 
         self.lines = None
         self.n_atoms = None
