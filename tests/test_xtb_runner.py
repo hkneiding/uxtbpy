@@ -76,5 +76,6 @@ class TestFileHandler(unittest.TestCase):
     ])
     def test_run_xtb_from_xyz_with_invalid_input(self, input, expected_error):
 
-        xtb_runner = XtbRunner()
-        self.assertRaises(expected_error, xtb_runner.run_xtb_from_xyz, input)
+        with self.assertWarns(Warning):
+            xtb_runner = XtbRunner()
+            self.assertRaises(expected_error, xtb_runner.run_xtb_from_xyz, input)

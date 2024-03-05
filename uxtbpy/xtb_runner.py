@@ -1,9 +1,9 @@
 import os
-import datetime
 import subprocess
 import warnings
 
 from .tools import change_directory
+from .logger import Logger
 from .file_handler import FileHandler
 from .xtb_output_parser import XtbOutputParser
 
@@ -29,6 +29,9 @@ class XtbRunner:
         self._xtb_directory = xtb_directory
         if not os.path.isdir(self._xtb_directory):
             os.makedirs(self._xtb_directory, exist_ok=True)
+
+        # set up Logger
+        self._logger = Logger(self._root_directory + '/logs/')
 
         # validate output format
         supported_output_formats = ['raw', 'dict']
@@ -78,25 +81,9 @@ class XtbRunner:
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
             # check if xtb calculation failed
-            if result.returncode != 0:
-                
-                # make logs directory if not found
-                if not os.path.isdir('./logs/'):
-                    os.mkdir('./logs/')
-
-                # read input file
-                with open(file_path, 'r') as fh:
-                    input_ = fh.read()
-
-                # build string to log
-                log = 'Input:\n\n' + input_ + '\n\nOutput:\n\n' + result.stdout.decode('utf-8')
-
-                # log xtb output
-                log_file_path = './logs/' + datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
-                FileHandler.write_file(log_file_path, log)
-                # exit
-                raise RuntimeError('xTB calculation failed with message: "' + result.stderr.decode('utf-8').rstrip() + '".\n' +
-                                'Writing output to "' + log_file_path + '".', result.stdout.decode('utf-8'))
+            if result.returncode != 0:                
+                self._logger.log_failed_subprocess(result)
+                raise RuntimeError()
         
         # return output
         if self._output_format == 'raw':
