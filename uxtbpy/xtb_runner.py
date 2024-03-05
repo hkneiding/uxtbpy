@@ -38,7 +38,13 @@ class XtbRunner:
         else:
             self._output_format = output_format
 
-    def _check_xtb_version(self):
+    def _check_xtb_available(self):
+
+        """Checks if xtb is available on the system.
+
+        Raises:
+            RuntimeError: If xtb cannot be accessed.
+        """
 
         result = subprocess.run(['xtb -version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         if b'xtb: not found' in result.stderr:
@@ -56,7 +62,7 @@ class XtbRunner:
             str: The xtb output.
         """
         
-        self._check_xtb_version()
+        self._check_xtb_available()
 
         # get absolute path
         if os.path.exists(file_path):
