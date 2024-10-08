@@ -150,12 +150,12 @@ class XtbOutputParser:
     def _extract_homo(self, start_index: int):
 
         line_split = self.lines[start_index].split()
-        return float(line_split[3])
+        return float(line_split[-2])
 
     def _extract_lumo(self, start_index: int):
 
         line_split = self.lines[start_index].split()
-        return float(line_split[2])
+        return float(line_split[-2])
 
     def _extract_molecular_mass(self, start_index: int):
 
