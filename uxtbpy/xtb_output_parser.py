@@ -225,19 +225,23 @@ class XtbOutputParser:
             
             line_split = self.lines[start_index].split()
             i_index = int(line_split[0]) - 1
-            
+
             for i in range(5, len(line_split), 3):
                 
                 j_index = int(line_split[i]) - 1
 
                 wiberg_index_matrix[i_index][j_index] = float(line_split[i + 2])
-            
+
             while '--' not in self.lines[start_index + 1]:
-            
+
                 start_index += 1
                 line_split = self.lines[start_index].split()
+                # break if next line corresponds to the next atom which has no associated Wiberg bond indices
+                if len(line_split) % 3 != 0:
+                    break
+
                 for i in range(0, len(line_split), 3):
-                    
+
                     j_index = int(line_split[i]) - 1
 
                     wiberg_index_matrix[i_index][j_index] = float(line_split[i + 2])
