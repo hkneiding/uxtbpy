@@ -104,7 +104,7 @@ class XtbRunner:
             str: The xtb output.
         """
 
-        file_path = self._xtb_directory + 'mol.' + file_extension
+        file_path = os.path.join(self._xtb_directory, 'mol.' + file_extension)
         FileHandler.write_file(file_path, molecule_data)
 
         return self.run_xtb(file_path, parameters=parameters)
