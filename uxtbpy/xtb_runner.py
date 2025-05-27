@@ -31,7 +31,7 @@ class XtbRunner:
             os.makedirs(self._xtb_directory, exist_ok=True)
 
         # set up Logger
-        self._logger = Logger(self._root_directory + '/logs/')
+        self._logger = Logger(os.path.join(self._root_directory, 'logs'))
 
         # validate output format
         supported_output_formats = ['raw', 'dict']

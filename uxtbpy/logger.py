@@ -37,7 +37,7 @@ class Logger():
             os.mkdir(self._log_directoy)
 
         # log
-        log_file_path = self._log_directoy + '/' + datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log'
+        log_file_path = os.path.join(self._log_directoy, datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log')
         warnings.warn(
             'xTB calculation failed with standard error: "' + subprocess_result.stderr.decode('utf-8').rstrip() + '".\n' +
             'Writing output to "' + log_file_path + '".'
