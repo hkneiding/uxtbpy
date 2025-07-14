@@ -32,11 +32,9 @@ class Logger():
             RuntimeError: _description_
         """
               
-        # make log directory if not found
         if not os.path.isdir(self._log_directoy):
             os.mkdir(self._log_directoy)
 
-        # log
         log_file_path = os.path.join(self._log_directoy, datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + '.log')
         warnings.warn(
             'xTB calculation failed with standard error: "' + subprocess_result.stderr.decode('utf-8').rstrip() + '".\n' +

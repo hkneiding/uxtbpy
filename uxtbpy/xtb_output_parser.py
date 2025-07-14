@@ -37,16 +37,13 @@ class XtbOutputParser:
 
         self.lines = data.split('\n')
         
-        # output variable
         xtb_output_data = {}
         
-        # determine number of atoms
         for i, line in enumerate(self.lines):
             if 'Mol. C6AA /au·bohr⁶' in line:
                 self.n_atoms = int(self.lines[i - 2].split()[0])
                 break
 
-        # return if number of atoms not found
         if self.n_atoms is None:
             warnings.warn('Failed to retrieve number of atoms. Check input file.')
             return xtb_output_data

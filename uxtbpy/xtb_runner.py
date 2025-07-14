@@ -22,18 +22,14 @@ class XtbRunner:
                 output_format (str): The format to output the result of xtb calculations.
         """
 
-        # remember the directory from which the program was launched from 
         self._root_directory = os.getcwd()
 
-        # set up working directory if it does not exist already
         self._xtb_directory = xtb_directory
         if not os.path.isdir(self._xtb_directory):
             os.makedirs(self._xtb_directory, exist_ok=True)
 
-        # set up Logger
         self._logger = Logger(os.path.join(self._root_directory, 'logs'))
 
-        # validate output format
         supported_output_formats = ['raw', 'dict']
         if output_format not in supported_output_formats:
             warnings.warn('Warning: Output format "' + output_format + '" not recognised. Defaulting to "raw".')
@@ -67,25 +63,20 @@ class XtbRunner:
         
         self._check_xtb_available()
 
-        # get absolute path
         if os.path.exists(file_path):
             file_path = os.path.abspath(file_path)
         else:
             raise FileNotFoundError('The specified file does not exist.')
 
-        # change to xtb directory
         with change_directory(self._xtb_directory):
             
-            # run xtb
             result = subprocess.run(['xtb' + ' ' + file_path + ' ' + ' '.join(parameters)], 
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
-            # check if xtb calculation failed
             if result.returncode != 0:                
                 self._logger.log_failed_subprocess(result)
                 raise RuntimeError()
         
-        # return output
         if self._output_format == 'raw':
             return result.stdout.decode('utf-8')
         elif self._output_format == 'dict':
