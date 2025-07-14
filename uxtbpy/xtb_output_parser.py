@@ -199,7 +199,9 @@ class XtbOutputParser:
             optimised_xyz_lines.append(' '.join(self.lines[start_index].split()))
             start_index += 1
 
-        return str(len(optimised_xyz_lines)) + '\n\n' + '\n'.join(optimised_xyz_lines)
+        return '\n\n'.join([
+            str(len(optimised_xyz_lines)), '\n'.join(optimised_xyz_lines)
+        ])
 
     def _extract_vibrational_frequencies(self, start_index: int):
 
@@ -217,7 +219,10 @@ class XtbOutputParser:
     def _extract_wiberg_index_matrix(self, start_index: int):
 
         # set up Wiberg matrix
-        wiberg_index_matrix = [[0 for _ in range(self.n_atoms)] for __ in range(self.n_atoms)] 
+        wiberg_index_matrix = [
+            [0 for _ in range(self.n_atoms)] for __ in range(self.n_atoms)
+        ]
+
         while '-------' not in self.lines[start_index]:
             
             line_split = self.lines[start_index].split()
@@ -233,7 +238,8 @@ class XtbOutputParser:
 
                 start_index += 1
                 line_split = self.lines[start_index].split()
-                # break if next line corresponds to the next atom which has no associated Wiberg bond indices
+                # break if next line corresponds to the next atom which has no
+                # associated Wiberg bond indices
                 if len(line_split) % 3 != 0:
                     break
 
