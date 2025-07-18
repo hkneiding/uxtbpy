@@ -49,7 +49,34 @@ class XtbRunner:
         if b'xtb: not found' in result.stderr:
             raise RuntimeError('No valid version of xTB found. Please make sure you have xTB installed and it is accessible via "xtb".')
 
-    def run_xtb(self, file_path: str, parameters: list = []):
+    def run_xtb(self, parameters: list = []):
+
+        """Executes xtb with the given parameters.
+
+        Arguments:
+            parameters (list[str]): The parameters to append to the xtb call.
+
+        Returns:
+            str: The xtb output.
+        """
+        
+        self._check_xtb_available()
+
+        with change_directory(self._xtb_directory):
+            
+            result = subprocess.run(['xtb' + ' ' + parameters[0]], 
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+            if result.returncode != 0:                
+                self._logger.log_failed_subprocess(result)
+                raise RuntimeError()
+        
+        if self._output_format == 'raw':
+            return result.stdout.decode('utf-8')
+        elif self._output_format == 'dict':
+            return XtbOutputParser().parse(result.stdout.decode('utf-8'))
+
+    def run_xtb_from_file(self, file_path: str, parameters: list = []):
 
         """Executes xtb with the given file and parameters.
 
@@ -61,26 +88,12 @@ class XtbRunner:
             str: The xtb output.
         """
         
-        self._check_xtb_available()
-
         if os.path.exists(file_path):
             file_path = os.path.abspath(file_path)
         else:
             raise FileNotFoundError('The specified file does not exist.')
 
-        with change_directory(self._xtb_directory):
-            
-            result = subprocess.run(['xtb' + ' ' + file_path + ' ' + ' '.join(parameters)], 
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-
-            if result.returncode != 0:                
-                self._logger.log_failed_subprocess(result)
-                raise RuntimeError()
-        
-        if self._output_format == 'raw':
-            return result.stdout.decode('utf-8')
-        elif self._output_format == 'dict':
-            return XtbOutputParser().parse(result.stdout.decode('utf-8'))
+        return self.run_xtb([file_path] + parameters)
 
     def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: list = []):
 
@@ -98,7 +111,7 @@ class XtbRunner:
         file_path = os.path.join(self._xtb_directory, 'mol.' + file_extension)
         FileHandler.write_file(file_path, molecule_data)
 
-        return self.run_xtb(file_path, parameters=parameters)
+        return self.run_xtb_from_file(file_path, parameters=parameters)
 
     def run_xtb_from_xyz(self, xyz: str, parameters: list = []):
 

@@ -37,10 +37,10 @@ class TestFileHandler(unittest.TestCase):
         ],
 
     ])
-    def test_run_xtb(self, file_path, output_format, expected_output_format):
+    def test_run_xtb_from_file(self, file_path, output_format, expected_output_format):
 
         xtb_runner = XtbRunner(output_format=output_format)
-        self.assertEqual(type(xtb_runner.run_xtb(file_path)), expected_output_format)
+        self.assertEqual(type(xtb_runner.run_xtb_from_file(file_path)), expected_output_format)
 
     @parameterized.expand([
 
@@ -54,7 +54,7 @@ class TestFileHandler(unittest.TestCase):
     def test_run_xtb_with_missing_file(self, file_path, expected_error):
 
         xtb_runner = XtbRunner()
-        self.assertRaises(expected_error, xtb_runner.run_xtb, file_path)
+        self.assertRaises(expected_error, xtb_runner.run_xtb_from_file, file_path)
 
     @parameterized.expand([
 
