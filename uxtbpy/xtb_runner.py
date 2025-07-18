@@ -58,6 +58,9 @@ class XtbRunner:
 
         Returns:
             str: The xtb output.
+
+        Raises:
+            RuntimeError: If xtb job failed.
         """
         
         self._check_xtb_available()
@@ -86,6 +89,9 @@ class XtbRunner:
 
         Returns:
             str: The xtb output.
+        
+        Raises:
+            FileNotFoundError: If the specified file does not exist.
         """
         
         if os.path.exists(file_path):
