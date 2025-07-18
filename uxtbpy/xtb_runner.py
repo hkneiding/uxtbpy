@@ -22,6 +22,8 @@ class XtbRunner:
                 output_format (str): The format to output the result of xtb calculations.
         """
 
+        self._check_xtb_available()
+
         self._root_directory = os.getcwd()
 
         self._xtb_directory = xtb_directory
@@ -62,8 +64,6 @@ class XtbRunner:
         Raises:
             RuntimeError: If xtb job failed.
         """
-        
-        self._check_xtb_available()
 
         with change_directory(self._xtb_directory):
             
