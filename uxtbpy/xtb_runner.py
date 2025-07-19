@@ -70,15 +70,15 @@ class XtbRunner:
             result = subprocess.run(['xtb' + ' ' + ' '.join(parameters)], 
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
+            if result.returncode != 0:
+                self._logger.log_failed_subprocess(result)
+                raise RuntimeError()
+
             with open('xtb.stdout', 'w') as fh:
                 fh.write(result.stdout.decode('utf-8'))
             with open('xtb.stderr', 'w') as fh:
                 fh.write(result.stderr.decode('utf-8'))
 
-            if result.returncode != 0:
-                self._logger.log_failed_subprocess(result)
-                raise RuntimeError()
-        
         if self._output_format == 'raw':
             return result.stdout.decode('utf-8')
         elif self._output_format == 'dict':
