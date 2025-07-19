@@ -48,7 +48,7 @@ class XtbRunner:
         """
 
         result = subprocess.run(['xtb -version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        if b'xtb: not found' in result.stderr:
+        if b'normal termination of xtb' not in result.stderr:
             raise RuntimeError('No valid version of xTB found. Please make sure you have xTB installed and it is accessible via "xtb".')
 
     def run_xtb(self, parameters: list = []):
