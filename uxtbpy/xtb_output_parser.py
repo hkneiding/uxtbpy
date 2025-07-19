@@ -1,4 +1,5 @@
 import warnings
+from string import digits
 
 
 element_identifiers = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne',
@@ -90,6 +91,15 @@ class XtbOutputParser:
 
             if 'projected vibrational frequencies' in self.lines[i]:
                 xtb_output_data['vibrational_frequencies'] = self._extract_vibrational_frequencies(i + 1)
+
+            if 'reduced masses' in self.lines[i]:
+                xtb_output_data['reduced_masses'] = self._extract_reduced_masses(i + 1)
+
+            if 'IR intensities' in self.lines[i]:
+                xtb_output_data['ir_intensities'] = self._extract_ir_intensities(i + 1)
+
+            if 'Raman intensities' in self.lines[i]:
+                xtb_output_data['raman_intensities'] = self._extract_raman_intensities(i + 1)
 
             if 'Mol. α(0) /au' in self.lines[i]:
                 xtb_output_data['polarisability'] = self._extract_polarisability(i)
@@ -215,6 +225,54 @@ class XtbOutputParser:
             start_index += 1
         
         return vibrational_frequencies
+    
+    def _extract_reduced_masses(self, start_index: int):
+
+        reduced_masses = []
+
+        allowed = set(digits).union(':. ')
+
+        while all(_ in allowed for _ in self.lines[start_index]):
+
+            line_split = self.lines[start_index].replace(':', '').split()
+            for i in range(1, len(line_split), 2):
+                reduced_masses.append(float(line_split[i]))
+            
+            start_index += 1
+
+        return reduced_masses
+
+    def _extract_ir_intensities(self, start_index: int):
+
+        ir_intensities = []
+
+        allowed = set(digits).union(':. ')
+
+        while all(_ in allowed for _ in self.lines[start_index]):
+
+            line_split = self.lines[start_index].replace(':', '').split()
+            for i in range(1, len(line_split), 2):
+                ir_intensities.append(float(line_split[i]))
+            
+            start_index += 1
+
+        return ir_intensities
+    
+    def _extract_raman_intensities(self, start_index: int):
+
+        raman_intensities = []
+
+        allowed = set(digits).union(':. ')
+
+        while all(_ in allowed for _ in self.lines[start_index]):
+
+            line_split = self.lines[start_index].replace(':', '').split()
+            for i in range(1, len(line_split), 2):
+                raman_intensities.append(float(line_split[i]))
+            
+            start_index += 1
+
+        return raman_intensities
 
     def _extract_wiberg_index_matrix(self, start_index: int):
 

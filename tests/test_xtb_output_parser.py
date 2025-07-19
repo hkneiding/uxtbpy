@@ -334,3 +334,68 @@ class TestXtbOutputParser(unittest.TestCase):
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
         self.assertEqual(result['wiberg_index_matrix'], expected)
+
+    @parameterized.expand([
+
+        [
+            SEROTONIN_OUTPUT_FILE,
+            [
+                12.15, 12.14, 11.57, 12.01, 12.38, 11.24, 10.74, 7.3, 10.46, 12.13, 10.02, 9.96,
+                2.07, 10.36, 11.38, 11.04, 6.5, 11.81, 5.18, 11.87, 5.03, 10.85, 8.05, 10.8,
+                11.16, 11.54, 11.47, 11.35, 3.32, 4.52, 3.08, 10.7, 3.29, 3.17, 3.63, 9.81,
+                6.73, 6.93, 7.5, 3.21, 9.33, 5.14, 3.47, 2.72, 4.95, 5.65, 4.77, 6.67, 2.49,
+                4.68, 10.27, 9.08, 4.71, 11.53, 10.67, 10.3, 2.01, 1.87, 11.28, 2.09, 11.67,
+                11.62, 11.7, 1.74, 1.68, 1.78, 1.68, 1.82, 1.82, 1.85, 1.87, 1.53, 2.06, 1.87,
+                1.86
+            ]
+        ],
+    ])
+    def test_extract_reduced_masses(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result['reduced_masses'], expected)
+
+
+    @parameterized.expand([
+
+        [
+            SEROTONIN_OUTPUT_FILE,
+            [
+                0.04, 0.01, 0.05, 0.07, 0.01, 0.05, 1.3, 4.54, 0.18, 1.1, 1.09, 
+                2.61, 43.66, 2.26, 6.33, 11.37, 71.26, 9.87, 68.04, 3.54, 
+                99.53, 2.28, 6.21, 5.2, 3.64, 3.49, 13.69, 2.1, 4.76, 40.69,
+                9.95, 0.78, 0.02, 0.17, 36.0, 37.0, 38.0, 39.0, 40.0, 22.36,
+                10.64, 60.83, 45.0, 46126.65, 9.76, 52.65, 4.64, 2.61, 16.34,
+                29.47, 30.86, 7.94, 5.46, 93.84, 1.75, 2.01, 60.0, 61.0, 62.0,
+                63.0, 64.0, 0.95, 66.24, 39.01, 40.82, 31.93, 25.67, 21.78,
+                17.69, 15.81, 12.7, 9.04
+            ]
+        ],
+    ])
+    def test_extract_ir_intensities(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result['ir_intensities'], expected)
+
+    @parameterized.expand([
+
+        [
+            SEROTONIN_OUTPUT_FILE,
+            [
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0
+            ]
+        ],
+    ])
+    def test_extract_raman_intensities(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result['raman_intensities'], expected)
