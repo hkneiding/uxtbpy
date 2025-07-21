@@ -22,7 +22,7 @@ class XtbRunner:
                 output_format (str): The format to output the result of xtb calculations.
         """
 
-        self._check_xtb_available()
+        self._check_available()
 
         self._root_directory = os.getcwd()
 
@@ -39,7 +39,7 @@ class XtbRunner:
         else:
             self._output_format = output_format
 
-    def _check_xtb_available(self):
+    def _check_available(self):
 
         """Checks if xtb is available on the system.
 
@@ -51,7 +51,7 @@ class XtbRunner:
         if b'normal termination of xtb' not in result.stderr:
             raise RuntimeError('No valid version of xTB found. Please make sure you have xTB installed and it is accessible via "xtb".')
 
-    def run_xtb(self, parameters: list = []):
+    def run(self, parameters: list = []):
 
         """Executes xtb with the given parameters.
 
@@ -84,7 +84,7 @@ class XtbRunner:
         elif self._output_format == 'dict':
             return XtbOutputParser().parse(result.stdout.decode('utf-8'))
 
-    def run_xtb_from_file(self, file_path: str, parameters: list = []):
+    def run_from_file(self, file_path: str, parameters: list = []):
 
         """Executes xtb with the given file and parameters.
 
@@ -104,9 +104,9 @@ class XtbRunner:
         else:
             raise FileNotFoundError('The specified file does not exist.')
 
-        return self.run_xtb([file_path] + parameters)
+        return self.run([file_path] + parameters)
 
-    def run_xtb_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: list = []):
+    def run_from_molecule_data(self, molecule_data: str, file_extension: str, parameters: list = []):
 
         """Executes xtb with the given molecule data and parameters.
 
@@ -122,9 +122,9 @@ class XtbRunner:
         file_path = os.path.join(self._xtb_directory, 'mol.' + file_extension)
         FileHandler.write_file(file_path, molecule_data)
 
-        return self.run_xtb_from_file(file_path, parameters=parameters)
+        return self.run_from_file(file_path, parameters=parameters)
 
-    def run_xtb_from_xyz(self, xyz: str, parameters: list = []):
+    def run_from_xyz(self, xyz: str, parameters: list = []):
 
         """Executes xtb with the given xyz data and parameters.
 
@@ -136,4 +136,4 @@ class XtbRunner:
             str: The xtb output.
         """
 
-        return self.run_xtb_from_molecule_data(xyz, 'xyz', parameters=parameters)
+        return self.run_from_molecule_data(xyz, 'xyz', parameters=parameters)

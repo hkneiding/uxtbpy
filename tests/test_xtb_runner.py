@@ -15,7 +15,7 @@ class TestXtbRunner(unittest.TestCase):
         ],
 
     ])
-    def test_xtb_runner_with_invalid_output_format(self, output_format):
+    def test_constructor_with_invalid_output_format(self, output_format):
 
         with self.assertWarns(Warning):
             xtb_runner = XtbRunner(output_format=output_format)
@@ -36,10 +36,10 @@ class TestXtbRunner(unittest.TestCase):
         ],
 
     ])
-    def test_run_xtb_from_file(self, file_path, output_format, expected_output_format):
+    def test_run_from_file(self, file_path, output_format, expected_output_format):
 
         xtb_runner = XtbRunner(output_format=output_format)
-        self.assertEqual(type(xtb_runner.run_xtb_from_file(file_path)), expected_output_format)
+        self.assertEqual(type(xtb_runner.run_from_file(file_path)), expected_output_format)
 
     @parameterized.expand([
 
@@ -50,10 +50,10 @@ class TestXtbRunner(unittest.TestCase):
 
 
     ])
-    def test_run_xtb_with_missing_file(self, file_path, expected_error):
+    def test_run_from_file_with_missing_file(self, file_path, expected_error):
 
         xtb_runner = XtbRunner()
-        self.assertRaises(expected_error, xtb_runner.run_xtb_from_file, file_path)
+        self.assertRaises(expected_error, xtb_runner.run_from_file, file_path)
 
     @parameterized.expand([
 
@@ -73,8 +73,8 @@ class TestXtbRunner(unittest.TestCase):
         ]
 
     ])
-    def test_run_xtb_from_xyz_with_invalid_input(self, input, expected_error):
+    def test_run_from_xyz_with_invalid_input(self, input, expected_error):
 
         with self.assertWarns(Warning):
             xtb_runner = XtbRunner()
-            self.assertRaises(expected_error, xtb_runner.run_xtb_from_xyz, input)
+            self.assertRaises(expected_error, xtb_runner.run_from_xyz, input)
