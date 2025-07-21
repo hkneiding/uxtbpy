@@ -6,7 +6,7 @@ from uxtbpy.xtb_runner import XtbRunner
 
 SEROTONIN_INPUT_FILE = './tests/files/serotonin.xyz'
 
-class TestFileHandler(unittest.TestCase):
+class TestXtbRunner(unittest.TestCase):
 
     @parameterized.expand([
 
