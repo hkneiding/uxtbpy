@@ -35,15 +35,10 @@ class Runner(ABC):
         pass
 
     @abstractmethod
-    def run(self, parameters: list = []):
+    def run(self, **kwargs):
 
-        """Executes the binary with the given parameters.
+        """Executes the binary.
 
-        Arguments:
-            parameters (list[str]): The parameters to append to the binary call.
-
-        Returns:
-            str: The output.
         """
 
         pass
