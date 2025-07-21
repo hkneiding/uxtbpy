@@ -72,7 +72,7 @@ class XtbRunner:
 
             if result.returncode != 0:
                 self._logger.log_failed_subprocess(result)
-                raise RuntimeError()
+                raise RuntimeError('xTB job failed.')
 
             with open('xtb.stdout', 'w') as fh:
                 fh.write(result.stdout.decode('utf-8'))
