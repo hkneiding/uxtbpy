@@ -21,7 +21,6 @@ class TestXtbRunner(unittest.TestCase):
             xtb_runner = XtbRunner(output_format=output_format)
             self.assertEqual(xtb_runner._output_format, 'raw')
 
-
     @parameterized.expand([
 
         [
