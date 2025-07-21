@@ -3,34 +3,25 @@ import subprocess
 import warnings
 
 from .tools import change_directory
-from .logger import Logger
+from .runner import Runner
 from .file_handler import FileHandler
 from .xtb_output_parser import XtbOutputParser
 
 
-class XtbRunner:
+class XtbRunner(Runner):
 
     """Adapter class for running xtb jobs."""
 
-    def __init__(self, xtb_directory: str = './.temp/', output_format: str = 'raw'):
+    def __init__(self, working_directory: str = './.temp/', output_format: str = 'raw'):
         
         """Constructor.
 
             Arguments:
-                xtb_directory (str): The path to the directory in which temporary files will be created 
-                 from the xtb calculations.
+                working_directory (str): The path to the directory from which xtb will be launched.
                 output_format (str): The format to output the result of xtb calculations.
         """
 
-        self._check_available()
-
-        self._root_directory = os.getcwd()
-
-        self._xtb_directory = xtb_directory
-        if not os.path.isdir(self._xtb_directory):
-            os.makedirs(self._xtb_directory, exist_ok=True)
-
-        self._logger = Logger(os.path.join(self._root_directory, 'logs'))
+        super().__init__(working_directory)
 
         supported_output_formats = ['raw', 'dict']
         if output_format not in supported_output_formats:
@@ -65,7 +56,7 @@ class XtbRunner:
             RuntimeError: If xtb job failed.
         """
 
-        with change_directory(self._xtb_directory):
+        with change_directory(self._working_directory):
             
             result = subprocess.run(['xtb' + ' ' + ' '.join(parameters)], 
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -119,7 +110,7 @@ class XtbRunner:
             str: The xtb output.
         """
 
-        file_path = os.path.join(self._xtb_directory, 'mol.' + file_extension)
+        file_path = os.path.join(self._working_directory, 'mol.' + file_extension)
         FileHandler.write_file(file_path, molecule_data)
 
         return self.run_from_file(file_path, parameters=parameters)
