@@ -4,6 +4,7 @@ import subprocess
 from abc import ABC, abstractmethod
 
 from .tools import change_directory
+from .file_handler import FileHandler
 from .subprocess_error import SubprocessError
 
 
@@ -38,13 +39,21 @@ class Runner(ABC):
             raise RuntimeError("No valid version of " + binary_name + " found.")
 
     @staticmethod
-    def run_binary(binary_name: str, parameters: list, working_directory: str):
+    def run_binary(
+        binary_name: str,
+        parameters: list,
+        working_directory: str = "./",
+        write_stdout: bool = False,
+        write_stderr: bool = False,
+    ):
         """Excutes a given binary with a given list of parameters in a given working directory.
 
         Arguments:
             binary_name (str): The binary.
             parameters (list[str]): The list of parameters to append to the binary call.
             working_directory (str): The path to the directory from which the interfaced binary will be launched.
+            write_stdout (bool): Flag indicating whether to write stdout to disk.
+            write_stderr (bool): Flag indiating whether to write stderr to disk.
 
         Returns:
             CompletedProcess: The CompletedProcess object.
@@ -61,6 +70,16 @@ class Runner(ABC):
                 stderr=subprocess.PIPE,
                 shell=True,
             )
+
+            if write_stdout:
+                FileHandler.write_file(
+                    f"{binary_name}.stdout", result.stdout.decode("utf-8")
+                )
+
+            if write_stderr:
+                FileHandler.write_file(
+                    f"{binary_name}.stderr", result.stderr.decode("utf-8")
+                )
 
             if result.returncode != 0:
                 raise SubprocessError(

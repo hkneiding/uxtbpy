@@ -53,7 +53,11 @@ class XtbRunner(Runner):
         """
 
         result = Runner.run_binary(
-            "xtb", parameters, working_directory=self._working_directory
+            "xtb",
+            parameters,
+            working_directory=self._working_directory,
+            write_stdout=True,
+            write_stderr=False,
         )
 
         if self._output_format == "raw":
