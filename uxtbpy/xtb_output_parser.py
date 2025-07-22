@@ -161,10 +161,10 @@ class XtbOutputParser:
 
             if "final structure" in self.lines[i]:
                 xtb_output_data["atomic_numbers"] = self._extract_atomic_numbers(i + 4)
-                xtb_output_data["optimised_atomic_positions"] = (
-                    self._extract_optimised_atomic_positions(i + 4)
+                xtb_output_data["optimized_atomic_positions"] = (
+                    self._extract_optimized_atomic_positions(i + 4)
                 )
-                xtb_output_data["optimised_xyz"] = self._extract_optimised_xyz(i + 4)
+                xtb_output_data["optimized_xyz"] = self._extract_optimized_xyz(i + 4)
 
             if "projected vibrational frequencies" in self.lines[i]:
                 xtb_output_data["vibrational_frequencies"] = (
@@ -183,7 +183,7 @@ class XtbOutputParser:
                 )
 
             if "Mol. α(0) /au" in self.lines[i]:
-                xtb_output_data["polarisability"] = self._extract_polarisability(i)
+                xtb_output_data["polarizability"] = self._extract_polarizability(i)
 
             if "Wiberg/Mayer (AO) data." in self.lines[i]:
                 xtb_output_data["wiberg_index_matrix"] = (
@@ -252,7 +252,7 @@ class XtbOutputParser:
         line_split = self.lines[start_index].split()
         return float(line_split[3])
 
-    def _extract_polarisability(self, start_index: int):
+    def _extract_polarizability(self, start_index: int):
 
         line_split = self.lines[start_index].split()
         return float(line_split[4])
@@ -269,31 +269,31 @@ class XtbOutputParser:
 
         return atomic_numbers
 
-    def _extract_optimised_atomic_positions(self, start_index: int):
+    def _extract_optimized_atomic_positions(self, start_index: int):
 
-        optimised_atomic_positions = []
+        optimized_atomic_positions = []
 
         while self.lines[start_index].strip() != "":
 
             line_split = self.lines[start_index].split()
-            optimised_atomic_positions.append(
+            optimized_atomic_positions.append(
                 [float(line_split[1]), float(line_split[2]), float(line_split[3])]
             )
             start_index += 1
 
-        return optimised_atomic_positions
+        return optimized_atomic_positions
 
-    def _extract_optimised_xyz(self, start_index: int):
+    def _extract_optimized_xyz(self, start_index: int):
 
-        optimised_xyz_lines = []
+        optimized_xyz_lines = []
 
         while self.lines[start_index].strip() != "":
 
-            optimised_xyz_lines.append(" ".join(self.lines[start_index].split()))
+            optimized_xyz_lines.append(" ".join(self.lines[start_index].split()))
             start_index += 1
 
         return "\n\n".join(
-            [str(len(optimised_xyz_lines)), "\n".join(optimised_xyz_lines)]
+            [str(len(optimized_xyz_lines)), "\n".join(optimized_xyz_lines)]
         )
 
     def _extract_vibrational_frequencies(self, start_index: int):

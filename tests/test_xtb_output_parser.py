@@ -15,11 +15,11 @@ class TestXtbOutputParser(unittest.TestCase):
             [SEROTONIN_OUTPUT_FILE, 131.186589],
         ]
     )
-    def test_extract_polarisability(self, output_file, expected):
+    def test_extract_polarizability(self, output_file, expected):
 
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
-        self.assertEqual(result["polarisability"], expected)
+        self.assertEqual(result["polarizability"], expected)
 
     @parameterized.expand(
         [
@@ -117,11 +117,11 @@ class TestXtbOutputParser(unittest.TestCase):
             ],
         ]
     )
-    def test_optimised_atomic_positions(self, output_file, expected):
+    def test_optimized_atomic_positions(self, output_file, expected):
 
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
-        self.assertEqual(result["optimised_atomic_positions"], expected)
+        self.assertEqual(result["optimized_atomic_positions"], expected)
 
     @parameterized.expand(
         [
@@ -156,12 +156,12 @@ class TestXtbOutputParser(unittest.TestCase):
             ],
         ]
     )
-    def test_optimised_xyz(self, output_file, expected):
+    def test_optimized_xyz(self, output_file, expected):
 
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
 
-        self.assertEqual(result["optimised_xyz"].strip(), expected.strip())
+        self.assertEqual(result["optimized_xyz"].strip(), expected.strip())
 
     @parameterized.expand(
         [

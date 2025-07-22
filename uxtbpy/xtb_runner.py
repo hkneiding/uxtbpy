@@ -24,7 +24,7 @@ class XtbRunner(Runner):
             warnings.warn(
                 'Warning: Output format "'
                 + output_format
-                + '" not recognised. Defaulting to "raw".'
+                + '" not recognized. Defaulting to "raw".'
             )
             self._output_format = "raw"
         else:
