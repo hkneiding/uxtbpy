@@ -1,8 +1,6 @@
 import os
-import subprocess
 import warnings
 
-from .tools import change_directory
 from .runner import Runner
 from .file_handler import FileHandler
 from .xtb_output_parser import XtbOutputParser
@@ -32,20 +30,14 @@ class XtbRunner(Runner):
         else:
             self._output_format = output_format
 
-    def _check_available(self):
+    def check(self):
         """Checks if xtb is available on the system.
 
         Raises:
-            RuntimeError: If xtb cannot be accessed.
+            RunTimeError: If xtb is not available.
         """
 
-        result = subprocess.run(
-            ["xtb -version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-        )
-        if b"normal termination of xtb" not in result.stderr:
-            raise RuntimeError(
-                'No valid version of xTB found. Please make sure you have xTB installed and it is accessible via "xtb".'
-            )
+        Runner.check_binary("xtb")
 
     def run(self, parameters: list = []):
         """Executes xtb with the given parameters.
@@ -57,26 +49,12 @@ class XtbRunner(Runner):
             str: The xtb output.
 
         Raises:
-            RuntimeError: If xtb job failed.
+            SubprocessError: If xtb job failed.
         """
 
-        with change_directory(self._working_directory):
-
-            result = subprocess.run(
-                ["xtb" + " " + " ".join(parameters)],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                shell=True,
-            )
-
-            if result.returncode != 0:
-                self._logger.log_failed_subprocess(result)
-                raise RuntimeError("xTB job failed.")
-
-            with open("xtb.stdout", "w") as fh:
-                fh.write(result.stdout.decode("utf-8"))
-            with open("xtb.stderr", "w") as fh:
-                fh.write(result.stderr.decode("utf-8"))
+        result = Runner.run_binary(
+            "xtb", parameters, working_directory=self._working_directory
+        )
 
         if self._output_format == "raw":
             return result.stdout.decode("utf-8")
@@ -95,6 +73,7 @@ class XtbRunner(Runner):
 
         Raises:
             FileNotFoundError: If the specified file does not exist.
+            SubprocessError: If xtb job failed.
         """
 
         if os.path.exists(file_path):
@@ -116,6 +95,9 @@ class XtbRunner(Runner):
 
         Returns:
             str: The xtb output.
+
+        Raises:
+            SubprocessError: If xtb job failed.
         """
 
         file_path = os.path.join(self._working_directory, "mol." + file_extension)
@@ -132,6 +114,9 @@ class XtbRunner(Runner):
 
         Returns:
             str: The xtb output.
+
+        Raises:
+            SubprocessError: If xtb job failed.
         """
 
         return self.run_from_molecule_data(xyz, "xyz", parameters=parameters)

@@ -2,6 +2,7 @@ import unittest
 from parameterized import parameterized
 
 from uxtbpy.xtb_runner import XtbRunner
+from uxtbpy.subprocess_error import SubprocessError
 
 
 SEROTONIN_INPUT_FILE = "./tests/files/serotonin.xyz"
@@ -45,13 +46,12 @@ class TestXtbRunner(unittest.TestCase):
 
     @parameterized.expand(
         [
-            ["O 0 0 0\nO 0 0 1", RuntimeError],
-            ["\n\nO 0 0 0\nO 0 0 1", RuntimeError],
-            ["2\n\nO 0 0 0\nO 0 0", RuntimeError],
+            ["O 0 0 0\nO 0 0 1", SubprocessError],
+            ["\n\nO 0 0 0\nO 0 0 1", SubprocessError],
+            ["2\n\nO 0 0 0\nO 0 0", SubprocessError],
         ]
     )
     def test_run_from_xyz_with_invalid_input(self, input, expected_error):
 
-        with self.assertWarns(Warning):
-            xtb_runner = XtbRunner()
-            self.assertRaises(expected_error, xtb_runner.run_from_xyz, input)
+        xtb_runner = XtbRunner()
+        self.assertRaises(expected_error, xtb_runner.run_from_xyz, input)
