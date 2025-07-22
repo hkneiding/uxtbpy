@@ -5,15 +5,13 @@ from .logger import Logger
 
 
 class Runner(ABC):
-
     """Abstract adapter class for interfacing binaries."""
 
-    def __init__(self, working_directory: str = './.temp/'):
-        
+    def __init__(self, working_directory: str = "./.temp/"):
         """Constructor.
 
-            Arguments:
-                working_directory (str): The path to the directory from which the interfaced binary will be launched.
+        Arguments:
+            working_directory (str): The path to the directory from which the interfaced binary will be launched.
         """
 
         self._check_available()
@@ -23,22 +21,16 @@ class Runner(ABC):
         if not os.path.isdir(self._working_directory):
             os.makedirs(self._working_directory, exist_ok=True)
 
-        self._logger = Logger(os.path.join(self._root_directory, 'logs'))
+        self._logger = Logger(os.path.join(self._root_directory, "logs"))
 
     @abstractmethod
     def _check_available(self):
-
-        """Checks if binary is available on the system.
-
-        """
+        """Checks if binary is available on the system."""
 
         pass
 
     @abstractmethod
-    def run(self, **kwargs):
-
-        """Executes the binary.
-
-        """
+    def run(self, *args, **kwargs):
+        """Executes the binary."""
 
         pass

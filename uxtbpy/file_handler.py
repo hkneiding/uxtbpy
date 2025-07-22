@@ -1,5 +1,4 @@
 class FileHandler:
-
     """Class for handling all IO/file handling tasks."""
 
     @staticmethod
@@ -18,11 +17,11 @@ class FileHandler:
         """
 
         try:
-            f = open(file_path, 'r')
+            f = open(file_path, "r")
         except FileNotFoundError:
-            raise FileNotFoundError('The specified file does not exist.')
+            raise FileNotFoundError("The specified file does not exist.")
         except IsADirectoryError:
-            raise IsADirectoryError('Cannot open directory.')
+            raise IsADirectoryError("Cannot open directory.")
 
         with f:
             data = f.read()
@@ -39,6 +38,6 @@ class FileHandler:
             data (string): The file content to write.
         """
 
-        f = open(file_path, 'w')
+        f = open(file_path, "w")
         f.write(data)
         f.close()

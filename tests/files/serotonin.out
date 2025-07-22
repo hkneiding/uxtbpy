@@ -1,11 +1,11 @@
-      -----------------------------------------------------------      
-     |                   =====================                   |     
-     |                           x T B                           |     
-     |                   =====================                   |     
-     |                         S. Grimme                         |     
-     |          Mulliken Center for Theoretical Chemistry        |     
-     |                    University of Bonn                     |     
-      -----------------------------------------------------------      
+      -----------------------------------------------------------
+     |                   =====================                   |
+     |                           x T B                           |
+     |                   =====================                   |
+     |                         S. Grimme                         |
+     |          Mulliken Center for Theoretical Chemistry        |
+     |                    University of Bonn                     |
+      -----------------------------------------------------------
 
    * xtb version 6.4.1 (afa7bdf) compiled by 'ehlert@majestix' on 2021-06-10
 
@@ -13,17 +13,17 @@
    the terms of the GNU Lesser General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    xtb is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Lesser General Public License for more details.
-   
+
    Cite this work as:
    * C. Bannwarth, E. Caldeweyher, S. Ehlert, A. Hansen, P. Pracht,
      J. Seibert, S. Spicher, S. Grimme, WIREs Comput. Mol. Sci., 2020, 11,
      e01493. DOI: 10.1002/wcms.1493
-   
+
    for GFN2-xTB:
    * C. Bannwarth, S. Ehlert and S. Grimme., J. Chem. Theory Comput., 2019,
      15, 1652-1671. DOI: 10.1021/acs.jctc.8b01176
@@ -36,7 +36,7 @@
    for GFN-FF:
    * S. Spicher and S. Grimme, Angew. Chem. Int. Ed., 2020, 59, 15665-15673.
      DOI: 10.1002/anie.202004239
-   
+
    for DFT-D4:
    * E. Caldeweyher, C. Bannwarth and S. Grimme, J. Chem. Phys., 2017,
      147, 034112. DOI: 10.1063/1.4993215
@@ -45,33 +45,33 @@
      DOI: 10.1063/1.5090222
    * E. Caldeweyher, J.-M. Mewes, S. Ehlert and S. Grimme, Phys. Chem. Chem. Phys.
      2020, 22, 8499-8512. DOI: 10.1039/D0CP00502A
-   
+
    for sTDA-xTB:
    * S. Grimme and C. Bannwarth, J. Chem. Phys., 2016, 145, 054103.
      DOI: 10.1063/1.4959605
-   
+
    in the mass-spec context:
    * V. Asgeirsson, C. Bauer and S. Grimme, Chem. Sci., 2017, 8, 4879.
      DOI: 10.1039/c7sc00601b
    * J. Koopman and S. Grimme, ACS Omega 2019, 4, 12, 15120-15133.
      DOI: 10.1021/acsomega.9b02011
-   
+
    for metadynamics refer to:
    * S. Grimme, J. Chem. Theory Comput., 2019, 155, 2847-2862
      DOI: 10.1021/acs.jctc.9b00143
-   
+
    for SPH calculations refer to:
    * S. Spicher and S. Grimme, J. Chem. Theory Comput., 2021, 17, 1701-1714
      DOI: 10.1021/acs.jctc.0c01306
-   
+
    with help from (in alphabetical order)
    P. Atkinson, C. Bannwarth, F. Bohle, G. Brandenburg, E. Caldeweyher
    M. Checinski, S. Dohm, S. Ehlert, S. Ehrlich, I. Gerasimov, J. Koopman
    C. Lavigne, S. Lehtola, F. März, M. Müller, F. Musil, H. Neugebauer
    J. Pisarek, C. Plett, P. Pracht, J. Seibert, P. Shushkov, S. Spicher
    M. Stahn, M. Steiner, T. Strunk, J. Stückrath, T. Rose, and J. Unsleber
-   
- * started run on 2022/09/14 at 11:43:47.099     
+
+ * started run on 2022/09/14 at 11:43:47.099
 
            -------------------------------------------------
           |                Calculation Setup                |
@@ -216,13 +216,13 @@ CAMM data taken from xtbrestart
          :: atomisation energy         7.659853303642 Eh    ::
          :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-      ----------------------------------------------------------- 
+      -----------------------------------------------------------
      |                   =====================                   |
      |                        A N C O P T                        |
      |                   =====================                   |
      |               Approximate Normal Coordinate               |
      |                Rational Function Optimizer                |
-      ----------------------------------------------------------- 
+      -----------------------------------------------------------
 
           ...................................................
           :                      SETUP                      :
@@ -252,7 +252,7 @@ Using Lindh-Hessian (1995)
     0.021562    0.022985    0.026347    0.028564    0.031925    0.042858
  Highest eigenvalues
     1.791529    1.865248    1.966239    1.993059    2.068641    2.167106
- 
+
 
 ........................................................................
 .............................. CYCLE    1 ..............................
@@ -548,48 +548,48 @@ H        -0.75262324074595   -3.14367876854845   -1.90716801206746
 H        -2.49468861913193   -2.89719324766491   -2.13080596625127
 H        -1.34978460920199   -5.34537644053925   -1.01830733191282
 H        -1.99485394848676   -5.16988262992533   -2.51587551662237
- 
+
  Bond Distances (Angstroems)
  ---------------------------
-C1-C2=1.3754         C1-C6=1.4038         C1-H14=1.0780        C2-C1=1.3754         C2-C3=1.3891         C2-H15=1.0798        
-C3-C2=1.3891         C3-C4=1.4149         C3-N10=1.3661        C4-C3=1.4149         C4-C5=1.3961         C4-C8=1.4283         
-C5-C4=1.3961         C5-C6=1.3797         C5-H16=1.0820        C6-C1=1.4038         C6-C5=1.3797         C6-O7=1.3688         
-O7-C6=1.3688         O7-H17=0.9642        C8-C4=1.4283         C8-C9=1.3651         C8-C11=1.4919        C9-C8=1.3651         
-C9-N10=1.3678        C9-H18=1.0734        N10-C3=1.3661        N10-C9=1.3678        N10-H19=1.0051       C11-C8=1.4919        
-C11-C12=1.5336       C11-H20=1.0905       C11-H21=1.0929       C12-C11=1.5336       C12-N13=1.4542       C12-H22=1.1034       
-C12-H23=1.0937       N13-C12=1.4542       N13-H24=1.0154       N13-H25=1.0142       H14-C1=1.0780        H15-C2=1.0798        
-H16-C5=1.0820        H17-O7=0.9642        H18-C9=1.0734        H19-N10=1.0051       H20-C11=1.0905       H21-C11=1.0929       
-H22-C12=1.1034       H23-C12=1.0937       H24-N13=1.0154       H25-N13=1.0142       
+C1-C2=1.3754         C1-C6=1.4038         C1-H14=1.0780        C2-C1=1.3754         C2-C3=1.3891         C2-H15=1.0798
+C3-C2=1.3891         C3-C4=1.4149         C3-N10=1.3661        C4-C3=1.4149         C4-C5=1.3961         C4-C8=1.4283
+C5-C4=1.3961         C5-C6=1.3797         C5-H16=1.0820        C6-C1=1.4038         C6-C5=1.3797         C6-O7=1.3688
+O7-C6=1.3688         O7-H17=0.9642        C8-C4=1.4283         C8-C9=1.3651         C8-C11=1.4919        C9-C8=1.3651
+C9-N10=1.3678        C9-H18=1.0734        N10-C3=1.3661        N10-C9=1.3678        N10-H19=1.0051       C11-C8=1.4919
+C11-C12=1.5336       C11-H20=1.0905       C11-H21=1.0929       C12-C11=1.5336       C12-N13=1.4542       C12-H22=1.1034
+C12-H23=1.0937       N13-C12=1.4542       N13-H24=1.0154       N13-H25=1.0142       H14-C1=1.0780        H15-C2=1.0798
+H16-C5=1.0820        H17-O7=0.9642        H18-C9=1.0734        H19-N10=1.0051       H20-C11=1.0905       H21-C11=1.0929
+H22-C12=1.1034       H23-C12=1.0937       H24-N13=1.0154       H25-N13=1.0142
  C  H  Rav=1.0867 sigma=0.0094  Rmin=1.0734  Rmax=1.1034     8
  C  C  Rav=1.4178 sigma=0.0515  Rmin=1.3651  Rmax=1.5336    10
  N  H  Rav=1.0116 sigma=0.0046  Rmin=1.0051  Rmax=1.0154     3
  N  C  Rav=1.3960 sigma=0.0411  Rmin=1.3661  Rmax=1.4542     3
  O  H  Rav=0.9642 sigma=0.0000  Rmin=0.9642  Rmax=0.9642     1
  O  C  Rav=1.3688 sigma=0.0000  Rmin=1.3688  Rmax=1.3688     1
- 
+
  selected bond angles (degree)
  --------------------
-C6-C1-C2=121.09                H14-C1-C2=121.12               H14-C1-C6=117.79               C3-C2-C1=117.95                
-H15-C2-C1=120.88               H15-C2-C3=121.17               C4-C3-C2=121.67                N10-C3-C2=130.74               
-N10-C3-C4=107.59               C5-C4-C3=119.42                C8-C4-C3=106.89                C8-C4-C5=133.69                
-C6-C5-C4=118.59                H16-C5-C4=120.77               H16-C5-C6=120.65               C5-C6-C1=121.28                
-O7-C6-C1=116.78                O7-C6-C5=121.94                H17-O7-C6=109.38               C9-C8-C4=106.33                
-C11-C8-C4=126.69               C11-C8-C9=126.95               N10-C9-C8=110.35               H18-C9-C8=128.87               
-H18-C9-N10=120.77              C9-N10-C3=108.84               H19-N10-C3=125.55              H19-N10-C9=125.60              
- 
+C6-C1-C2=121.09                H14-C1-C2=121.12               H14-C1-C6=117.79               C3-C2-C1=117.95
+H15-C2-C1=120.88               H15-C2-C3=121.17               C4-C3-C2=121.67                N10-C3-C2=130.74
+N10-C3-C4=107.59               C5-C4-C3=119.42                C8-C4-C3=106.89                C8-C4-C5=133.69
+C6-C5-C4=118.59                H16-C5-C4=120.77               H16-C5-C6=120.65               C5-C6-C1=121.28
+O7-C6-C1=116.78                O7-C6-C5=121.94                H17-O7-C6=109.38               C9-C8-C4=106.33
+C11-C8-C4=126.69               C11-C8-C9=126.95               N10-C9-C8=110.35               H18-C9-C8=128.87
+H18-C9-N10=120.77              C9-N10-C3=108.84               H19-N10-C3=125.55              H19-N10-C9=125.60
+
  selected dihedral angles (degree)
  ---------------------------------
-C3-C2-C1-C6=359.89            C3-C2-C1-H14=180.02           H15-C2-C1-C6=179.84           H15-C2-C1-H14=359.97          
-C4-C3-C2-C1=359.88            C4-C3-C2-H15=179.93           N10-C3-C2-C1=179.85           N10-C3-C2-H15=359.90          
-C5-C4-C3-C2=  0.27            C5-C4-C3-N10=180.30           C8-C4-C3-C2=179.85            C8-C4-C3-N10=359.88           
-C6-C5-C4-C3=359.82            C6-C5-C4-C8=180.37            H16-C5-C4-C3=179.65           H16-C5-C4-C8=  0.20           
-C5-C6-C1-C2=  0.20            C5-C6-C1-H14=180.07           O7-C6-C1-C2=180.18            O7-C6-C1-H14=  0.05           
-C1-C6-C5-C4=359.96            C1-C6-C5-H16=180.13           O7-C6-C5-C4=179.97            O7-C6-C5-H16=  0.14           
-H17-O7-C6-C1=179.50           H17-O7-C6-C5=359.49           C9-C8-C4-C3=  0.18            C9-C8-C4-C5=179.68            
-C11-C8-C4-C3=178.06           C11-C8-C4-C5=357.56           N10-C9-C8-C4=359.82           N10-C9-C8-C11=181.95          
-H18-C9-C8-C4=180.24           H18-C9-C8-C11=  2.36          C9-N10-C3-C2=180.04           C9-N10-C3-C4=  0.00           
-H19-N10-C3-C2=359.56          H19-N10-C3-C4=179.53          C3-N10-C9-C8=  0.11           C3-N10-C9-H18=179.73          
-H19-N10-C9-C8=180.59          H19-N10-C9-H18=  0.22         
+C3-C2-C1-C6=359.89            C3-C2-C1-H14=180.02           H15-C2-C1-C6=179.84           H15-C2-C1-H14=359.97
+C4-C3-C2-C1=359.88            C4-C3-C2-H15=179.93           N10-C3-C2-C1=179.85           N10-C3-C2-H15=359.90
+C5-C4-C3-C2=  0.27            C5-C4-C3-N10=180.30           C8-C4-C3-C2=179.85            C8-C4-C3-N10=359.88
+C6-C5-C4-C3=359.82            C6-C5-C4-C8=180.37            H16-C5-C4-C3=179.65           H16-C5-C4-C8=  0.20
+C5-C6-C1-C2=  0.20            C5-C6-C1-H14=180.07           O7-C6-C1-C2=180.18            O7-C6-C1-H14=  0.05
+C1-C6-C5-C4=359.96            C1-C6-C5-H16=180.13           O7-C6-C5-C4=179.97            O7-C6-C5-H16=  0.14
+H17-O7-C6-C1=179.50           H17-O7-C6-C5=359.49           C9-C8-C4-C3=  0.18            C9-C8-C4-C5=179.68
+C11-C8-C4-C3=178.06           C11-C8-C4-C5=357.56           N10-C9-C8-C4=359.82           N10-C9-C8-C11=181.95
+H18-C9-C8-C4=180.24           H18-C9-C8-C11=  2.36          C9-N10-C3-C2=180.04           C9-N10-C3-C4=  0.00
+H19-N10-C3-C2=359.56          H19-N10-C3-C4=179.53          C3-N10-C9-C8=  0.11           C3-N10-C9-H18=179.73
+H19-N10-C9-C8=180.59          H19-N10-C9-H18=  0.22
            -------------------------------------------------
           |                Final Singlepoint                |
            -------------------------------------------------
@@ -675,9 +675,9 @@ H19-N10-C9-C8=180.59          H19-N10-C9-H18=  0.22
          :: atomisation energy         7.663833655956 Eh    ::
          :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-           ------------------------------------------------- 
+           -------------------------------------------------
           |                Numerical Hessian                |
-           ------------------------------------------------- 
+           -------------------------------------------------
 step length          :   0.00500
 SCC accuracy         :   0.30000
 Hessian scale factor :   1.00000
@@ -1013,7 +1013,7 @@ optimized geometry written to: xtbopt.xyz
   143 false : replaced   xtbrestart
 
 ------------------------------------------------------------------------
- * finished run on 2022/09/14 at 11:43:47.907     
+ * finished run on 2022/09/14 at 11:43:47.907
 ------------------------------------------------------------------------
  total:
  * wall-time:     0 d,  0 h,  0 min,  0.807 sec
