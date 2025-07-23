@@ -1,11 +1,9 @@
 import unittest
 from parameterized import parameterized
 
+from . import SEROTONIN_XYZ
 from uxtbpy.xtb_runner import XtbRunner
 from uxtbpy.subprocess_error import SubprocessError
-
-
-SEROTONIN_INPUT_FILE = "./tests/files/serotonin.xyz"
 
 
 class TestXtbRunner(unittest.TestCase):
@@ -23,8 +21,8 @@ class TestXtbRunner(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_INPUT_FILE, "raw", str],
-            [SEROTONIN_INPUT_FILE, "dict", dict],
+            [SEROTONIN_XYZ, "raw", str],
+            [SEROTONIN_XYZ, "dict", dict],
         ]
     )
     def test_run_from_file(self, file_path, output_format, expected_output_format):

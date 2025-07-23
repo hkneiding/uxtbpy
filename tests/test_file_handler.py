@@ -1,15 +1,13 @@
 import unittest
 from parameterized import parameterized
 
+from . import SEROTONIN_XTB_STDOUT
 from uxtbpy.file_handler import FileHandler
-
-
-SEROTONIN_OUTPUT_FILE = "./tests/files/serotonin.out"
 
 
 class TestFileHandler(unittest.TestCase):
 
-    @parameterized.expand([[SEROTONIN_OUTPUT_FILE]])
+    @parameterized.expand([[SEROTONIN_XTB_STDOUT]])
     def test_read_file(self, file_path):
 
         result = FileHandler.read_file(file_path)

@@ -1,18 +1,16 @@
 import unittest
 from parameterized import parameterized
 
+from . import SEROTONIN_XTB_STDOUT
 from uxtbpy.file_handler import FileHandler
 from uxtbpy.xtb_output_parser import XtbOutputParser
-
-
-SEROTONIN_OUTPUT_FILE = "./tests/files/serotonin.out"
 
 
 class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 131.186589],
+            [SEROTONIN_XTB_STDOUT, 131.186589],
         ]
     )
     def test_extract_polarizability(self, output_file, expected):
@@ -23,7 +21,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, -9.6533],
+            [SEROTONIN_XTB_STDOUT, -9.6533],
         ]
     )
     def test_extract_homo_energy(self, output_file, expected):
@@ -34,7 +32,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, -6.1835],
+            [SEROTONIN_XTB_STDOUT, -6.1835],
         ]
     )
     def test_extract_lumo_energy(self, output_file, expected):
@@ -46,7 +44,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     6,
                     6,
@@ -86,7 +84,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     [1.48537742545851, 1.27512515137874, -0.03158693279875],
                     [0.16869681352769, 1.67021148325986, 0.01160869779818],
@@ -126,7 +124,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 "25\n\n"
                 "C 1.48537742545851 1.27512515137874 -0.03158693279875\n"
                 "C 0.16869681352769 1.67021148325986 0.01160869779818\n"
@@ -165,7 +163,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 1.129],
+            [SEROTONIN_XTB_STDOUT, 1.129],
         ]
     )
     def test_extract_dipole_moment(self, output_file, expected):
@@ -176,7 +174,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 176.2154593],
+            [SEROTONIN_XTB_STDOUT, 176.2154593],
         ]
     )
     def test_extract_molecular_mass(self, output_file, expected):
@@ -187,7 +185,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 8130.0688],
+            [SEROTONIN_XTB_STDOUT, 8130.0688],
         ]
     )
     def test_extract_enthalpy(self, output_file, expected):
@@ -198,7 +196,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 49.0254],
+            [SEROTONIN_XTB_STDOUT, 49.0254],
         ]
     )
     def test_extract_heat_capacity(self, output_file, expected):
@@ -209,7 +207,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 106.7954],
+            [SEROTONIN_XTB_STDOUT, 106.7954],
         ]
     )
     def test_extract_entropy(self, output_file, expected):
@@ -220,7 +218,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 0.201767942942],
+            [SEROTONIN_XTB_STDOUT, 0.201767942942],
         ]
     )
     def test_extract_zpve(self, output_file, expected):
@@ -231,7 +229,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, -37.441567112416],
+            [SEROTONIN_XTB_STDOUT, -37.441567112416],
         ]
     )
     def test_extract_energy(self, output_file, expected):
@@ -242,7 +240,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, -37.226843080132],
+            [SEROTONIN_XTB_STDOUT, -37.226843080132],
         ]
     )
     def test_extract_enthalpy_energy(self, output_file, expected):
@@ -253,7 +251,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, -37.277585026853],
+            [SEROTONIN_XTB_STDOUT, -37.277585026853],
         ]
     )
     def test_extract_free_energy(self, output_file, expected):
@@ -264,7 +262,7 @@ class TestXtbOutputParser(unittest.TestCase):
 
     @parameterized.expand(
         [
-            [SEROTONIN_OUTPUT_FILE, 3.469772220532],
+            [SEROTONIN_XTB_STDOUT, 3.469772220532],
         ]
     )
     def test_extract_homo_lumo_gap(self, output_file, expected):
@@ -276,7 +274,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     0.0,
                     0.0,
@@ -366,7 +364,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     [
                         0,
@@ -1056,7 +1054,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     12.15,
                     12.14,
@@ -1146,7 +1144,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     0.04,
                     0.01,
@@ -1233,7 +1231,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     0.0,
                     0.0,
@@ -1323,7 +1321,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     2.924,
                     2.909,
@@ -1363,7 +1361,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     -0.058,
                     -0.053,
@@ -1403,7 +1401,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     29.441,
                     29.321,
@@ -1443,7 +1441,7 @@ class TestXtbOutputParser(unittest.TestCase):
     @parameterized.expand(
         [
             [
-                SEROTONIN_OUTPUT_FILE,
+                SEROTONIN_XTB_STDOUT,
                 [
                     8.898,
                     8.879,
