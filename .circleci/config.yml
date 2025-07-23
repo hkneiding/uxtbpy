@@ -40,9 +40,9 @@ jobs:
             chmod +x xtb4stda
             chmod +x stda
 
-            sudo mv xtb /usr/local/bin/
-            sudo mv xtb4stda /usr/local/bin/
-            sudo mv stda /usr/local/bin/
+            mv xtb /usr/local/bin/
+            mv xtb4stda /usr/local/bin/
+            mv stda /usr/local/bin/
 
       - run:
           name: run tests
