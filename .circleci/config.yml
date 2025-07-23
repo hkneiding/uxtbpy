@@ -37,9 +37,8 @@ jobs:
             chmod +x xtb4stda
             chmod +x stda
 
-            # symbolic link for xtb
-            ln -s xtb-dist/bin/xtb /usr/local/bin/xtb
-            # move stda binaries to /usr/local/bin/
+            # move binaries to /usr/local/bin/
+            mv xtb-dist/bin/xtb /usr/local/bin/
             mv xtb4stda /usr/local/bin/
             mv stda /usr/local/bin/
 
