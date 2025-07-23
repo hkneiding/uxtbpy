@@ -33,14 +33,13 @@ jobs:
             rm xtb-6.4.1-linux-x86_64.tar.xz
 
             # symbolic link for xtb
-            ln -s xtb-6.4.1/bin/xtb xtb
+            ln -s xtb-6.4.1/bin/xtb /usr/local/bin/xtb
 
             # add execution permissions
             chmod +x xtb
             chmod +x xtb4stda
             chmod +x stda
 
-            mv xtb /usr/local/bin/
             mv xtb4stda /usr/local/bin/
             mv stda /usr/local/bin/
 
