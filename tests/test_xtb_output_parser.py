@@ -1319,3 +1319,163 @@ class TestXtbOutputParser(unittest.TestCase):
         output_data = FileHandler.read_file(output_file)
         result = XtbOutputParser().parse(output_data)
         self.assertEqual(result["raman_intensities"], expected)
+
+    @parameterized.expand(
+        [
+            [
+                SEROTONIN_OUTPUT_FILE,
+                [
+                    2.924,
+                    2.909,
+                    3.087,
+                    3.12,
+                    2.91,
+                    2.846,
+                    1.659,
+                    3.055,
+                    3.037,
+                    2.777,
+                    3.805,
+                    3.732,
+                    2.63,
+                    0.926,
+                    0.926,
+                    0.925,
+                    0.805,
+                    0.926,
+                    0.86,
+                    0.924,
+                    0.924,
+                    0.923,
+                    0.924,
+                    0.86,
+                    0.86,
+                ],
+            ],
+        ]
+    )
+    def test_extract_atomic_coordination_numbers(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result["atomic_coordination_numbers"], expected)
+
+    @parameterized.expand(
+        [
+            [
+                SEROTONIN_OUTPUT_FILE,
+                [
+                    -0.058,
+                    -0.053,
+                    0.034,
+                    -0.019,
+                    -0.079,
+                    0.133,
+                    -0.403,
+                    -0.031,
+                    -0.009,
+                    -0.104,
+                    -0.063,
+                    0.028,
+                    -0.342,
+                    0.048,
+                    0.029,
+                    0.022,
+                    0.293,
+                    0.031,
+                    0.156,
+                    0.046,
+                    0.037,
+                    0.004,
+                    0.031,
+                    0.135,
+                    0.134,
+                ],
+            ],
+        ]
+    )
+    def test_extract_atomic_partial_charges(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result["atomic_partial_charges"], expected)
+
+    @parameterized.expand(
+        [
+            [
+                SEROTONIN_OUTPUT_FILE,
+                [
+                    29.441,
+                    29.321,
+                    27.139,
+                    28.299,
+                    29.963,
+                    25.089,
+                    20.906,
+                    28.729,
+                    28.21,
+                    23.273,
+                    21.713,
+                    20.191,
+                    28.812,
+                    2.351,
+                    2.602,
+                    2.708,
+                    0.742,
+                    2.567,
+                    1.358,
+                    2.366,
+                    2.483,
+                    2.998,
+                    2.573,
+                    1.509,
+                    1.512,
+                ],
+            ],
+        ]
+    )
+    def test_extract_atomic_dispersion_coefficients(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result["atomic_dispersion_coefficients"], expected)
+
+    @parameterized.expand(
+        [
+            [
+                SEROTONIN_OUTPUT_FILE,
+                [
+                    8.898,
+                    8.879,
+                    8.54,
+                    8.713,
+                    8.976,
+                    8.209,
+                    6.172,
+                    8.79,
+                    8.712,
+                    7.165,
+                    6.634,
+                    6.414,
+                    7.972,
+                    2.398,
+                    2.522,
+                    2.573,
+                    1.353,
+                    2.506,
+                    1.826,
+                    2.405,
+                    2.464,
+                    2.708,
+                    2.508,
+                    1.925,
+                    1.926,
+                ],
+            ],
+        ]
+    )
+    def test_extract_atomic_polarizabilities(self, output_file, expected):
+
+        output_data = FileHandler.read_file(output_file)
+        result = XtbOutputParser().parse(output_data)
+        self.assertEqual(result["atomic_polarizabilities"], expected)

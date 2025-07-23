@@ -182,6 +182,24 @@ class XtbOutputParser:
                     i + 1
                 )
 
+            if (
+                "#" in self.lines[i]
+                and "covCN" in self.lines[i]
+                and "q" in self.lines[i]
+            ):
+                xtb_output_data["atomic_coordination_numbers"] = (
+                    self._extract_atomic_coordination_numbers(i + 1)
+                )
+                xtb_output_data["atomic_partial_charges"] = (
+                    self._extract_atomic_partial_charges(i + 1)
+                )
+                xtb_output_data["atomic_dispersion_coefficients"] = (
+                    self._extract_atomic_dispersion_coefficients(i + 1)
+                )
+                xtb_output_data["atomic_polarizabilities"] = (
+                    self._extract_atomic_polarizabilities(i + 1)
+                )
+
             if "Mol. α(0) /au" in self.lines[i]:
                 xtb_output_data["polarizability"] = self._extract_polarizability(i)
 
@@ -356,6 +374,34 @@ class XtbOutputParser:
             start_index += 1
 
         return raman_intensities
+
+    def _extract_atomic_coordination_numbers(self, start_index: int):
+
+        return [
+            float(self.lines[start_index + i].strip().split()[3])
+            for i in range(self.n_atoms)
+        ]
+
+    def _extract_atomic_partial_charges(self, start_index: int):
+
+        return [
+            float(self.lines[start_index + i].strip().split()[4])
+            for i in range(self.n_atoms)
+        ]
+
+    def _extract_atomic_dispersion_coefficients(self, start_index: int):
+
+        return [
+            float(self.lines[start_index + i].strip().split()[5])
+            for i in range(self.n_atoms)
+        ]
+
+    def _extract_atomic_polarizabilities(self, start_index: int):
+
+        return [
+            float(self.lines[start_index + i].strip().split()[6])
+            for i in range(self.n_atoms)
+        ]
 
     def _extract_wiberg_index_matrix(self, start_index: int):
 
