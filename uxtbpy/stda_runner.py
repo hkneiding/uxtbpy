@@ -28,12 +28,12 @@ class StdaRunner(Runner):
         Runner.check_binary("stda")
 
     def run(self, xtb4stda_parameters: list = [], stda_parameters: list = []):
-        """Executes the stda pipeline with the given parameters.
+        """Executes the stda pipeline with the given parameters and returns the parsed output.
 
         Arguments:
 
         Returns:
-            str: The stda output.
+            dict: The parsed stda output.
 
         Raises:
             RuntimeError: If the stda job failed.
@@ -60,13 +60,13 @@ class StdaRunner(Runner):
     def run_from_file(
         self, file_path: str, xtb4stda_parameters: list = [], stda_parameters: list = []
     ):
-        """Executes the stda pipeline with the given file and parameters.
+        """Executes the stda pipeline with the given file and parameters and returns the parsed output.
 
         Arguments:
             file_path (str): The (relative/absolute) path to the molecule file.
 
         Returns:
-            str: The xtb output.
+            dict: The parsed stda output.
 
         Raises:
             FileNotFoundError: If the specified file does not exist.
