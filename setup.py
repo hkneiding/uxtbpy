@@ -10,7 +10,7 @@ setup(
     author="Hannes Kneiding",
     author_email="hannes.kneiding@outlook.com",
     license="MIT",
-    python_requires=">=3.x",
+    python_requires=">=3.0",
     install_requires=[],
     classifiers=[
         "Programming Language :: Python :: 3",
