@@ -20,7 +20,7 @@ class Runner(ABC):
 
         self.check()
 
-        self._working_directory = working_directory
+        self._working_directory = os.path.abspath(working_directory)
         if not os.path.isdir(self._working_directory):
             os.makedirs(self._working_directory, exist_ok=True)
 
