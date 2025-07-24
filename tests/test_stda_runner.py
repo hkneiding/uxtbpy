@@ -3,6 +3,7 @@ from parameterized import parameterized
 
 from . import SEROTONIN_XYZ
 from uxtbpy.stda_runner import StdaRunner
+from uxtbpy.subprocess_error import SubprocessError
 
 
 class TestStdaRunner(unittest.TestCase):
@@ -28,3 +29,15 @@ class TestStdaRunner(unittest.TestCase):
 
         stda_runner = StdaRunner()
         self.assertRaises(expected_error, stda_runner.run_from_file, file_path)
+
+    @parameterized.expand(
+        [
+            ["O 0 0 0\nO 0 0 1", SubprocessError],
+            ["\n\nO 0 0 0\nO 0 0 1", SubprocessError],
+            ["2\n\nO 0 0 0\nO 0 0", SubprocessError],
+        ]
+    )
+    def test_run_from_xyz_with_invalid_input(self, input, expected_error):
+
+        stda_runner = StdaRunner()
+        self.assertRaises(expected_error, stda_runner.run_from_xyz, input)
